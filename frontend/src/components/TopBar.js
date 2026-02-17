@@ -17,7 +17,7 @@ export default function TopBar() {
         </div>
         <div className="flex items-center gap-2">
           <FiFacebook className="text-lg" />
-          <a href="tel:+48748311800" className="hover:text-orange-100 transition-colors">
+          <a href="https://www.facebook.com/schroniskoazylddz" className="hover:text-orange-100 transition-colors">
             Facebook
           </a>
         </div>

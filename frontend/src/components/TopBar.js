@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiPhone, FiClock, FiMapPin } from 'react-icons/fi';
+import { FiPhone, FiClock, FiMapPin, FiFacebook } from 'react-icons/fi';
 
 export default function TopBar() {
   return (
@@ -16,9 +16,9 @@ export default function TopBar() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <FiPhone className="text-lg" />
+          <FiFacebook className="text-lg" />
           <a href="tel:+48748311800" className="hover:text-orange-100 transition-colors">
-            Kontakt
+            Facebook
           </a>
         </div>
       </div>

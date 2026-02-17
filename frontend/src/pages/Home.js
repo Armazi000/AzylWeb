@@ -28,7 +28,7 @@ export default function Home() {
   return (
     <div className="fade-in">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-orange-600 via-orange-500 to-orange-400 text-white py-32 relative overflow-hidden" style={{backgroundImage: 'url(/hero-animals.jpg)', backgroundSize: 'cover', backgroundPosition: '300px center top'}}>
+      <section className="bg-gradient-to-r from-orange-600 via-orange-500 to-orange-400 text-white py-32 relative overflow-hidden" style={{backgroundImage: 'url(/hero-animals.jpg)', backgroundSize: 'cover', backgroundPosition: 'center'}}>
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -45,7 +45,7 @@ export default function Home() {
                   Poznaj zwierzęta <FiArrowRight />
                 </Link>
                 <Link
-                  to="/contact"
+                  to="/support"
                   className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-600 transition-all shadow-lg"
                 >
                   Jak pomóc

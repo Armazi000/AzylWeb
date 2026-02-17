@@ -12,7 +12,7 @@ export default function TopBar() {
           </div>
           <div className="flex items-center gap-2">
             <FiMapPin className="text-lg" />
-            <span>Dzierżoniów</span>
+            <span>ul. Brzegowa 151, Dzierżoniów</span>
           </div>
         </div>
         <div className="flex items-center gap-2">

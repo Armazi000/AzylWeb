@@ -65,7 +65,7 @@ export default function Footer() {
               </li>
               <li>
                 <a href="/support" className="text-white hover:text-orange-500 transition-colors">
-                  Darowiznę
+                  Darowizny
                 </a>
               </li>
               <li>
@@ -102,7 +102,7 @@ export default function Footer() {
       {/* Bottom Footer */}
       <div className="border-t border-[#1f1815] py-6 px-4">
         <div className="container mx-auto px-4 text-center text-sm text-white">
-          © 2026 Schronisko Azyl – Stowarzyszenie Przyjaciół Zwierząt "Azyl" | KRS: 0000062210 | Stworzone z ❤️ przez <a href="https://github.com/Armazi000" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:text-orange-400">Abyssal Echoes Labs</a>
+          © 2026 Schronisko Azyl | KRS: 0000062210 | Stworzone z ❤️ przez <a href="https://github.com/Armazi000" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:text-orange-400">Abyssal Echoes Labs</a>
         </div>
       </div>
     </footer>

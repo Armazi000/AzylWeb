@@ -24,7 +24,7 @@ export default function Navbar() {
           <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <img src="/logo.png" alt="Schronisko AZYL" width="45" height="45" className="flex-shrink-0" />
             <div>
-              <h1 className="text-2xl font-bold text-orange-600 leading-tight">Schronisko AZYL</h1>
+              <h1 className="text-2xl font-bold text-black-600 leading-tight">Schronisko AZYL</h1>
               <p className="text-xs text-orange-500 font-medium">Dla naszych podopiecznych</p>
             </div>
           </Link>

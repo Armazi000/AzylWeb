@@ -21,7 +21,7 @@ export default function Support() {
           <div className="bg-white rounded-lg shadow-md p-8 mb-8 border-l-4 border-orange-500">
             <h3 className="text-2xl font-bold text-gray-800 mb-6">1,5% podatku</h3>
             <p className="text-gray-700 mb-6 leading-relaxed">
-              Wspomóż Schronisko AZYL, przekazując 1% swojego podatku! To jest jedno z najważniejszych źródeł finansowania, które pozwala nam dokonywać znaczących ulepszeń urządzeń schroniska.
+              Wspomóż Schronisko AZYL, przekazując 1,5% swojego podatku! To jest jedno z najważniejszych źródeł finansowania, które pozwala nam dokonywać znaczących ulepszeń urządzeń schroniska.
             </p>
 
             <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg p-6 mb-6 border-l-4 border-orange-500">

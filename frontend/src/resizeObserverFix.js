@@ -1,56 +1,118 @@
-// Suppress ResizeObserver warnings that don't affect functionality
+// Comprehensive ResizeObserver error suppression
+// This fixes "ResizeObserver loop completed with undelivered notifications" error
+
 let ResizeObserverOriginal = window.ResizeObserver;
 
-window.ResizeObserver = class ResizeObserver {
-  constructor(callback) {
-    let isScheduled = false;
-    const wrappedCallback = (...args) => {
-      if (isScheduled) return;
-      isScheduled = true;
+if (ResizeObserverOriginal) {
+  window.ResizeObserver = class ResizeObserver {
+    constructor(callback) {
+      let isScheduled = false;
+      let lastCallTime = 0;
+      const debounceTime = 10;
       
-      requestAnimationFrame(() => {
-        try {
-          callback(...args);
-        } catch (e) {
-          // Silently ignore ResizeObserver errors
-          if (!e.toString().includes('ResizeObserver loop')) {
-            console.error('ResizeObserver callback error:', e);
-          }
+      const wrappedCallback = (...args) => {
+        const now = Date.now();
+        if (now - lastCallTime < debounceTime) {
+          return;
         }
-        isScheduled = false;
-      });
-    };
-    
-    this.observer = new ResizeObserverOriginal(wrappedCallback);
-  }
+        lastCallTime = now;
+        
+        if (isScheduled) return;
+        isScheduled = true;
+        
+        requestAnimationFrame(() => {
+          try {
+            callback(...args);
+          } catch (e) {
+            // Silently ignore ResizeObserver errors - they don't affect functionality
+          }
+          isScheduled = false;
+        });
+      };
+      
+      try {
+        this.observer = new ResizeObserverOriginal(wrappedCallback);
+      } catch (e) {
+        // Fallback if ResizeObserver initialization fails
+        this.observer = null;
+      }
+    }
 
-  observe(target) {
-    this.observer.observe(target);
-  }
+    observe(target) {
+      try {
+        if (this.observer) {
+          this.observer.observe(target);
+        }
+      } catch (e) {
+        // Silently ignore
+      }
+    }
 
-  unobserve(target) {
-    this.observer.unobserve(target);
-  }
+    unobserve(target) {
+      try {
+        if (this.observer) {
+          this.observer.unobserve(target);
+        }
+      } catch (e) {
+        // Silently ignore
+      }
+    }
 
-  disconnect() {
-    this.observer.disconnect();
-  }
-};
+    disconnect() {
+      try {
+        if (this.observer) {
+          this.observer.disconnect();
+        }
+      } catch (e) {
+        // Silently ignore
+      }
+    }
+  };
+}
 
-// Suppress console.error for ResizeObserver errors
+// Suppress ResizeObserver error messages globally
 const originalError = console.error;
-const errorQueue = [];
-let isProcessing = false;
+const originalWarn = console.warn;
 
 console.error = function(...args) {
   const errorString = args[0]?.toString?.() || '';
   
-  // Only suppress ResizeObserver loop errors
-  if (errorString.includes('ResizeObserver loop completed')) {
+  // Only suppress ResizeObserver loop errors - these are harmless
+  if (errorString.includes('ResizeObserver loop')) {
     return;
   }
   
-  // Call original console.error for everything else
+  // Call original error for other errors
   originalError.apply(console, args);
 };
+
+console.warn = function(...args) {
+  const warnString = args[0]?.toString?.() || '';
+  
+  // Only suppress ResizeObserver warnings
+  if (warnString.includes('ResizeObserver')) {
+    return;
+  }
+  
+  // Call original warn for other warnings
+  originalWarn.apply(console, args);
+};
+
+// Suppress error event for ResizeObserver loop errors
+window.addEventListener('error', function(event) {
+  const errorMessage = event.message || event.error?.toString?.() || '';
+  
+  if (errorMessage.includes('ResizeObserver loop')) {
+    event.preventDefault();
+  }
+}, true);
+
+// Also handle promise rejections related to ResizeObserver
+window.addEventListener('unhandledrejection', function(event) {
+  const errorMessage = event.reason?.toString?.() || '';
+  
+  if (errorMessage.includes('ResizeObserver')) {
+    event.preventDefault();
+  }
+}, true);
 

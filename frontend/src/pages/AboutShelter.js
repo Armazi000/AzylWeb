@@ -75,9 +75,9 @@ export default function AboutShelter() {
 
             {/* Team */}
             <section className="bg-white rounded-lg shadow-md p-8 border-l-4 border-orange-500">
-              <h2 className="text-3xl font-bold text-gray-800 mb-4">Nasz zespół</h2>
+              <h2 className="text-3xl font-bold text-gray-800 mb-4">Zarząd</h2>
               <p className="text-gray-700 mb-6">
-                Sukces Schroniska AZYL zależy od naszych poświęconych pracowników i wolontariuszy, którzy bez zmęczenia pracują, aby zaopiekować się naszymi zwierzętami.
+                Sukces Schroniska AZYL zależy od członków zarządu którzy bez zmęczenia pracują, aby zaopiekować się naszymi zwierzętami.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-orange-50 border-l-4 border-orange-500 pl-4 py-3">
@@ -91,10 +91,6 @@ export default function AboutShelter() {
                 <div className="bg-orange-50 border-l-4 border-orange-500 pl-4 py-3">
                   <h4 className="font-semibold text-gray-800">Adrian Kuśmierz</h4>
                   <p className="text-sm text-gray-600">Skarbnik</p>
-                </div>
-                <div className="bg-orange-50 border-l-4 border-orange-500 pl-4 py-3">
-                  <h4 className="font-semibold text-gray-800">Janina Mroczkowska</h4>
-                  <p className="text-sm text-gray-600">Wiceprezydent</p>
                 </div>
               </div>
               <p className="text-gray-700 mt-6">
@@ -127,8 +123,8 @@ export default function AboutShelter() {
                 <div className="pt-2">
                   <p className="text-gray-600 font-semibold mb-2">Godziny otwarcia</p>
                   <p className="text-gray-800 text-xs">
-                    <strong>Pn-Pt:</strong> 10:00-15:45<br />
-                    <strong>So:</strong> 10:00-14:45<br />
+                    <strong>Pn-Pt:</strong> 9:00-15:30<br />
+                    <strong>So:</strong> 9:00-14:00<br />
                     <strong>Nd:</strong> Zamknięte
                   </p>
                 </div>

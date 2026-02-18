@@ -7,7 +7,6 @@ import Home from './pages/Home';
 import DogsForAdoption from './pages/DogsForAdoption';
 import AboutShelter from './pages/AboutShelter';
 import Support from './pages/Support';
-import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import DogDetail from './pages/DogDetail';
 import Przetargi from './pages/Przetargi';
@@ -30,7 +29,6 @@ function App() {
             <Route path="/dogs/:id" element={<DogDetail />} />
             <Route path="/about" element={<AboutShelter />} />
             <Route path="/support" element={<Support />} />
-            <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/przetargi" element={<Przetargi />} />
             <Route path="/admin" element={<AdminLogin />} />

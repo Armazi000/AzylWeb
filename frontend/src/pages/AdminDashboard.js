@@ -1,53 +1,33 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiLogOut, FiKey, FiFileText, FiEdit2, FiTrash2, FiPlus, FiSave } from 'react-icons/fi';
-import axios from 'axios';
+import { FiLogOut, FiCheckCircle, FiAlertCircle, FiSave } from 'react-icons/fi';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
   const messageTimeoutRef = useRef(null);
-  const [activeTab, setActiveTab] = useState('api-keys');
-  const [articles, setArticles] = useState([]);
-  const [apiKeys, setApiKeys] = useState({
+  const rootRef = useRef(null);
+  const [status, setStatus] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [message, setMessage] = useState('');
+  const [activeTab, setActiveTab] = useState('status');
+  const [settings, setSettings] = useState({
     facebook_album_id: '',
     facebook_access_token: ''
   });
-  const [editingArticle, setEditingArticle] = useState(null);
-  const [newArticle, setNewArticle] = useState({ title: '', content: '', category: '' });
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
 
   useEffect(() => {
-    // Check if user is logged in
+    // Check if user is logged in and fetch status
     const session = localStorage.getItem('adminSession');
     if (!session) {
       navigate('/admin');
+    } else {
+      fetchStatus();
+      fetchSettings();
     }
   }, [navigate]);
-
-  useEffect(() => {
-    fetchArticles();
-  }, []);
-
-  // Cleanup timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (messageTimeoutRef.current) {
-        clearTimeout(messageTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  const fetchArticles = async () => {
-    try {
-      const res = await axios.get(`${API_URL}/api/articles`);
-      setArticles(res.data);
-    } catch (error) {
-      console.error('Error fetching articles:', error);
-    }
-  };
 
   const showMessage = (msg) => {
     setMessage(msg);
@@ -60,59 +40,90 @@ export default function AdminDashboard() {
     }, 3000);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('adminSession');
-    navigate('/');
-  };
-
-  const handleSaveArticle = async (e) => {
-    e.preventDefault();
-    if (editingArticle) {
-      // Update existing article (backend endpoint needed)
-      console.log('Update article:', editingArticle);
-      showMessage('✓ Artykuł zaktualizowany');
-    } else {
-      // Create new article
-      try {
-        await axios.post(`${API_URL}/api/articles`, newArticle);
-        setNewArticle({ title: '', content: '', category: '' });
-        fetchArticles();
-        showMessage('✓ Artykuł dodany');
-      } catch (error) {
-        showMessage('✗ Błąd przy dodawaniu artykułu');
-      }
-    }
-  };
-
-  const handleDeleteArticle = async (id) => {
-    if (window.confirm('Na pewno chcesz usunąć ten artykuł?')) {
-      try {
-        // Backend endpoint needed
-        await axios.delete(`${API_URL}/api/articles/${id}`);
-        fetchArticles();
-        showMessage('✓ Artykuł usunięty');
-      } catch (error) {
-        showMessage('✗ Błąd przy usuwaniu artykułu');
-      }
-    }
-  };
-
-  const handleSaveApiKeys = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  const fetchStatus = async () => {
     try {
-      // This would call a backend endpoint to securely store/update env variables
-      console.log('Saving API keys:', apiKeys);
-      showMessage('✓ Klucze API zapisane (wymagany restart serwera)');
+      const session = localStorage.getItem('adminSession');
+      const response = await fetch(`${API_URL}/api/admin/status`, {
+        headers: {
+          'Authorization': `Bearer ${session}`
+        }
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setStatus(data);
+      } else if (response.status === 401) {
+        localStorage.removeItem('adminSession');
+        navigate('/admin');
+      }
     } catch (error) {
-      showMessage('✗ Błąd przy zapisywaniu kluczy');
+      console.error('Error fetching status:', error);
     } finally {
       setLoading(false);
     }
   };
 
+  const fetchSettings = async () => {
+    try {
+      const session = localStorage.getItem('adminSession');
+      const response = await fetch(`${API_URL}/api/admin/settings/facebook`, {
+        headers: {
+          'Authorization': `Bearer ${session}`
+        }
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setSettings(data);
+      }
+    } catch (error) {
+      console.error('Error fetching settings:', error);
+    }
+  };
+
+  const handleSaveSettings = async (e) => {
+    e.preventDefault();
+    setSaving(true);
+
+    try {
+      const session = localStorage.getItem('adminSession');
+      const response = await fetch(`${API_URL}/api/admin/settings/facebook`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session}`
+        },
+        body: JSON.stringify(settings)
+      });
+
+      if (response.ok) {
+        showMessage('✓ Ustawienia Facebook zostały zapisane');
+      } else {
+        const error = await response.json();
+        showMessage('✗ ' + (error.error || 'Błąd przy zapisywaniu'));
+      }
+    } catch (error) {
+      showMessage('✗ Błąd połączenia');
+      console.error('Error saving settings:', error);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (messageTimeoutRef.current) {
+        clearTimeout(messageTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('adminSession');
+    navigate('/');
+  };
+
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div ref={rootRef} className="min-h-screen bg-gray-100" style={{ contain: 'layout style paint' }}>
       {/* Header */}
       <div className="bg-orange-600 text-white shadow-lg">
         <div className="container mx-auto px-4 py-6 flex justify-between items-center">
@@ -126,183 +137,148 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      {/* Message */}
-      {message && (
-        <div className="bg-blue-50 border-l-4 border-blue-500 p-4 m-4 rounded">
-          <p className="text-blue-700 font-semibold">{message}</p>
-        </div>
-      )}
-
-      {/* Tabs */}
-      <div className="border-b border-gray-300 bg-white">
-        <div className="container mx-auto px-4 flex gap-0">
-          <button
-            onClick={() => setActiveTab('api-keys')}
-            className={`flex items-center gap-2 px-6 py-4 font-semibold border-b-4 transition-colors ${
-              activeTab === 'api-keys'
-                ? 'border-orange-600 text-orange-600'
-                : 'border-transparent text-gray-600 hover:text-gray-800'
-            }`}
-          >
-            <FiKey /> Klucze API
-          </button>
-          <button
-            onClick={() => setActiveTab('articles')}
-            className={`flex items-center gap-2 px-6 py-4 font-semibold border-b-4 transition-colors ${
-              activeTab === 'articles'
-                ? 'border-orange-600 text-orange-600'
-                : 'border-transparent text-gray-600 hover:text-gray-800'
-            }`}
-          >
-            <FiFileText /> Artykuły
-          </button>
-        </div>
-      </div>
-
       {/* Content */}
       <div className="container mx-auto px-4 py-8">
-        {/* API Keys Tab */}
-        {activeTab === 'api-keys' && (
-          <div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Zarządzaj Kluczami API</h2>
-
-            <form onSubmit={handleSaveApiKeys} className="space-y-6">
-              <div>
-                <label className="block text-gray-700 font-semibold mb-2">ID Albumu Facebook</label>
-                <input
-                  type="text"
-                  value={apiKeys.facebook_album_id}
-                  onChange={(e) => setApiKeys({ ...apiKeys, facebook_album_id: e.target.value })}
-                  placeholder="Wpisz ID albumu (np. 123456789012345)"
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-500"
-                />
-                <p className="text-sm text-gray-600 mt-2">
-                  Znaleź w URL albumu: facebook.com/media/set/?set=a.<strong>ALBUM_ID</strong>
-                </p>
-              </div>
-
-              <div>
-                <label className="block text-gray-700 font-semibold mb-2">Token Dostępu Facebook</label>
-                <textarea
-                  value={apiKeys.facebook_access_token}
-                  onChange={(e) => setApiKeys({ ...apiKeys, facebook_access_token: e.target.value })}
-                  placeholder="Wpisz token dostępu z Graph API Explorer"
-                  rows="4"
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-500 font-mono text-sm"
-                />
-                <p className="text-sm text-gray-600 mt-2">
-                  ⚠️ Tokeny wygasają po 60 dniach. Wygeneruj nowy w Graph API Explorer.
-                </p>
-              </div>
-
-              <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
-                <p className="text-sm text-blue-700">
-                  <strong>Notatka:</strong> Zmiany będą zapisane w pliku .env. Wymagany jest restart serwera backend.
-                </p>
-              </div>
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="flex items-center gap-2 w-full bg-orange-600 hover:bg-orange-700 disabled:bg-gray-400 text-white font-bold py-3 rounded-lg transition-colors transform hover:scale-105"
-              >
-                <FiSave /> {loading ? 'Zapisywanie...' : 'Zapisz Klucze'}
-              </button>
-            </form>
+        {message && (
+          <div className="mb-6 p-4 rounded-lg bg-gray-100 text-gray-800 border border-gray-300 text-center">
+            {message}
           </div>
         )}
 
-        {/* Articles Tab */}
-        {activeTab === 'articles' && (
-          <div>
-            {/* New Article Form */}
-            <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-                <FiPlus /> Dodaj Nowy Artykuł
-              </h2>
-
-              <form onSubmit={handleSaveArticle} className="space-y-6">
-                <div>
-                  <label className="block text-gray-700 font-semibold mb-2">Tytuł</label>
-                  <input
-                    type="text"
-                    value={newArticle.title}
-                    onChange={(e) => setNewArticle({ ...newArticle, title: e.target.value })}
-                    placeholder="Wpisz tytuł artykułu"
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-gray-700 font-semibold mb-2">Kategoria</label>
-                  <select
-                    value={newArticle.category}
-                    onChange={(e) => setNewArticle({ ...newArticle, category: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-500"
-                  >
-                    <option value="">Wybierz kategorię</option>
-                    <option value="news">Wiadomości</option>
-                    <option value="tips">Porady</option>
-                    <option value="events">Wydarzenia</option>
-                    <option value="adoption">Adopcja</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-gray-700 font-semibold mb-2">Treść</label>
-                  <textarea
-                    value={newArticle.content}
-                    onChange={(e) => setNewArticle({ ...newArticle, content: e.target.value })}
-                    placeholder="Wpisz treść artykułu"
-                    rows="8"
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-500"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="flex items-center gap-2 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg transition-colors transform hover:scale-105"
-                >
-                  <FiPlus /> Dodaj Artykuł
-                </button>
-              </form>
+        {loading ? (
+          <div className="bg-white rounded-lg shadow-lg p-8 text-center">
+            <p className="text-gray-600">Ładowanie...</p>
+          </div>
+        ) : (
+          <div className="bg-white rounded-lg shadow-lg max-w-2xl">
+            {/* Tab Navigation */}
+            <div className="flex border-b border-gray-300">
+              <button
+                onClick={() => setActiveTab('status')}
+                className={`flex-1 px-6 py-4 font-semibold text-center transition-colors ${
+                  activeTab === 'status'
+                    ? 'text-orange-600 border-b-2 border-orange-600'
+                    : 'text-gray-600 hover:text-gray-800'
+                }`}
+              >
+                Status
+              </button>
+              <button
+                onClick={() => setActiveTab('settings')}
+                className={`flex-1 px-6 py-4 font-semibold text-center transition-colors ${
+                  activeTab === 'settings'
+                    ? 'text-orange-600 border-b-2 border-orange-600'
+                    : 'text-gray-600 hover:text-gray-800'
+                }`}
+              >
+                Ustawienia Facebook
+              </button>
             </div>
 
-            {/* Articles List */}
-            <div className="grid gap-6">
-              <h2 className="text-2xl font-bold text-gray-800">Artykuły ({articles.length})</h2>
-              {articles.length === 0 ? (
-                <div className="bg-white rounded-lg shadow p-8 text-center">
-                  <p className="text-gray-600">Brak artykułów. Dodaj pierwszy!</p>
-                </div>
-              ) : (
-                articles.map(article => (
-                  <div key={article.id} className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
-                    <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-800">{article.title}</h3>
-                        <p className="text-sm text-gray-500 mt-1">
-                          Kategoria: <span className="font-semibold">{article.category}</span>
-                        </p>
+            {/* Tab Content */}
+            <div className="p-8">
+              {/* Status Tab */}
+              {activeTab === 'status' && status && (
+                <div className="space-y-6">
+                  <h2 className="text-2xl font-bold text-gray-800">Status Systemu</h2>
+
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0">
+                      {status.facebook_configured ? (
+                        <FiCheckCircle className="text-green-600 text-2xl" />
+                      ) : (
+                        <FiAlertCircle className="text-amber-600 text-2xl" />
+                      )}
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-800">Integracja Facebook</h3>
+                      <p className="text-sm text-gray-600 mt-1">
+                        {status.facebook_configured
+                          ? '✓ Klucze API są skonfigurowane'
+                          : '⚠️ Klucze API nie są skonfigurowane. Skonfiguruj je w zakładce Ustawienia.'}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="border-t border-gray-300 pt-6">
+                    <h3 className="text-lg font-semibold text-gray-800 mb-4">Statystyki</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-gray-50 p-4 rounded">
+                        <p className="text-sm text-gray-600">Psy w schronisku</p>
+                        <p className="text-3xl font-bold text-orange-600">{status.total_dogs || 0}</p>
                       </div>
-                      <div className="flex gap-2">
-                        <button
-                          onClick={() => setEditingArticle(article)}
-                          className="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors"
-                        >
-                          <FiEdit2 />
-                        </button>
-                        <button
-                          onClick={() => handleDeleteArticle(article.id)}
-                          className="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
-                        >
-                          <FiTrash2 />
-                        </button>
+                      <div className="bg-gray-50 p-4 rounded">
+                        <p className="text-sm text-gray-600">Wiadomości</p>
+                        <p className="text-3xl font-bold text-orange-600">{status.unread_messages || 0}</p>
                       </div>
                     </div>
-                    <p className="text-gray-700 line-clamp-3">{article.content}</p>
                   </div>
-                ))
+                </div>
+              )}
+
+              {/* Settings Tab */}
+              {activeTab === 'settings' && (
+                <div className="space-y-6">
+                  <h2 className="text-2xl font-bold text-gray-800">Ustawienia Facebook</h2>
+
+                  <form onSubmit={handleSaveSettings} className="space-y-6">
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-800 mb-2">
+                        ID Albumu
+                      </label>
+                      <input
+                        type="text"
+                        value={settings.facebook_album_id}
+                        onChange={(e) =>
+                          setSettings({ ...settings, facebook_album_id: e.target.value })
+                        }
+                        placeholder="Np. 123456789"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-600"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">
+                        ID albumu z Facebooka, gdzie będą przechowywane zdjęcia psów
+                      </p>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-800 mb-2">
+                        Token Dostępu
+                      </label>
+                      <textarea
+                        value={settings.facebook_access_token}
+                        onChange={(e) =>
+                          setSettings({ ...settings, facebook_access_token: e.target.value })
+                        }
+                        placeholder="Wklej token dostępu do Facebook API"
+                        rows={4}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-600 font-mono text-sm"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">
+                        Long-lived access token z Facebook App. Przechowywany bezpiecznie na serwerze.
+                      </p>
+                    </div>
+
+                    <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-sm text-gray-700">
+                      <p className="font-semibold mb-2">💡 Jak uzyskać klucze API:</p>
+                      <ol className="list-decimal list-inside space-y-1 text-xs">
+                        <li>Przejdź do Facebook Developers Console</li>
+                        <li>Utwórz aplikację Facebook lub użyj istniejącej</li>
+                        <li>Przejdź do sekcji Narzędzia → Explorer API Grafu</li>
+                        <li>Wygeneruj token dostępu z uprawnieniami <code className="bg-white px-1">photos_upload_manage</code></li>
+                        <li>Skopiuj ID albumu i token poniżej</li>
+                      </ol>
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={saving}
+                      className="w-full flex items-center justify-center gap-2 bg-orange-600 hover:bg-orange-700 disabled:bg-gray-400 text-white font-semibold py-3 rounded-lg transition-colors"
+                    >
+                      <FiSave size={20} />
+                      {saving ? 'Zapisywanie...' : 'Zapisz Ustawienia'}
+                    </button>
+                  </form>
+                </div>
               )}
             </div>
           </div>

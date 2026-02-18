@@ -11,7 +11,6 @@ export default function Navbar() {
     { label: 'Psy do adopcji', path: '/dogs' },
     { label: 'O nas', path: '/about' },
     { label: 'Wspomóż nas', path: '/support' },
-    { label: 'Blog', path: '/blog' },
     { label: 'Przetargi', path: '/przetargi' },
     { label: 'Kontakt', path: '/contact' }
   ];

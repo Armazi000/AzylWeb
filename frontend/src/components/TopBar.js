@@ -8,7 +8,7 @@ export default function TopBar() {
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
             <FiClock className="text-lg" />
-            <span>Pon-Pt: 10:00-15:45 | Sob: 10:00-14:45</span>
+            <span>Pon-Pt: 9:00-15:30 | Sob: 9:00-14:00</span>
           </div>
           <div className="flex items-center gap-2">
             <FiMapPin className="text-lg" />

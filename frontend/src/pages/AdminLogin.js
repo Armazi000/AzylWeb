@@ -1,28 +1,44 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 export default function AdminLogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const ADMIN_USERNAME = process.env.REACT_APP_ADMIN_USERNAME || 'admin';
-  const ADMIN_PASSWORD = process.env.REACT_APP_ADMIN_PASSWORD || 'schronisko2024';
-
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
-    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-      // Store session in localStorage
-      localStorage.setItem('adminSession', JSON.stringify({
-        loggedIn: true,
-        timestamp: new Date().getTime()
-      }));
-      navigate('/admin/dashboard');
-    } else {
-      setError('Niewaściwe dane logowania');
+    try {
+      const response = await fetch(`${API_URL}/api/admin/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        // Store secure token in localStorage
+        localStorage.setItem('adminSession', data.token);
+        navigate('/admin/dashboard');
+      } else if (response.status === 401) {
+        setError('Niewłaściwe dane logowania');
+      } else {
+        setError('Błąd serwera. Spróbuj ponownie.');
+      }
+    } catch (err) {
+      setError('Błąd połączenia. Sprawdź adres serwera.');
+      console.error('Login error:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -64,19 +80,12 @@ export default function AdminLogin() {
 
             <button
               type="submit"
-              className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 rounded-lg transition-colors transform hover:scale-105"
+              disabled={loading}
+              className="w-full bg-orange-600 hover:bg-orange-700 disabled:bg-gray-400 text-white font-bold py-3 rounded-lg transition-colors transform hover:scale-105"
             >
-              Zaloguj się
+              {loading ? 'Zalogowanie...' : 'Zaloguj się'}
             </button>
           </form>
-
-          <div className="mt-8 p-4 bg-gray-50 rounded-lg">
-            <p className="text-xs text-gray-600">
-              <strong>Demo dane:</strong><br/>
-              Username: admin<br/>
-              Password: schronisko2024
-            </p>
-          </div>
         </div>
       </div>
     </div>

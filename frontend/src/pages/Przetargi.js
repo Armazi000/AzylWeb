@@ -6,17 +6,17 @@ export default function Przetargi() {
     {
       title: "Ogłoszenie zamowienie na sterylizację i kastrację na rok 2025",
       files: [
-        { name: "umowa", filename: "umowa-2025.pdf" },
-        { name: "druk oferty", filename: "druk-oferty-2025.pdf" },
-        { name: "zapytanie ofertowe – sterylizacja", filename: "zapytanie-sterylizacja-2025.pdf" }
+        { name: "umowa", filename: "umowa-sterylizacje-2025.odt" },
+        { name: "druk oferty", filename: "druk-oferty-sterylizacje-2025.odt" },
+        { name: "zapytanie ofertowe – sterylizacja", filename: "zapytanie-ofertowe-sterylizacje-2025.odt" }
       ]
     },
     {
       title: "Ogłoszenie zamówienia na usługi weterynaryjne na rok 2025",
       files: [
-        { name: "druk oferty – weterynarz", filename: "druk-oferty-weterynarz-2025.pdf" },
-        { name: "umowa – załącznik nr 3", filename: "umowa-zalacznik-3-2025.pdf" },
-        { name: "zapytanie ofertowe usługi weterynaryjne", filename: "zapytanie-weterynarz-2025.pdf" }
+        { name: "druk oferty – weterynarz", filename: "druk-oferty-weterynarz-2025.odt" },
+        { name: "umowa – załącznik nr 3", filename: "umowa-zalaczniknr3-weterynarz-2025.doc" },
+        { name: "zapytanie ofertowe usługi weterynaryjne", filename: "zapytanie-ofertowe-uslugi-weterynaryjne-2025.odt" }
       ]
     },
     {

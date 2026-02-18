@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { FiPhone, FiMail, FiMapPin, FiClock } from 'react-icons/fi';
 import { FaFacebook } from 'react-icons/fa';
+import axios from 'axios';
+
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -10,20 +13,32 @@ export default function Contact() {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
+    setLoading(true);
+    setError('');
+    
+    try {
+      await axios.post(`${API_URL}/api/messages`, formData);
+      setSubmitted(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 3000);
+      setTimeout(() => {
+        setSubmitted(false);
+      }, 3000);
+    } catch (err) {
+      setError('Błąd przy wysyłaniu wiadomości. Spróbuj ponownie.');
+      console.error('Error:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -46,7 +61,13 @@ export default function Contact() {
 
               {submitted && (
                 <div className="bg-green-50 border-2 border-green-200 text-green-800 px-4 py-3 rounded-lg mb-6">
-                  ✓ Dziękujemy! Twoja wiadomość została odebrana. Skontaktujemy się wkrótce.
+                  ✓ Dziękujemy! Twoja wiadomość została wysłana. Skontaktujemy się wkrótce.
+                </div>
+              )}
+
+              {error && (
+                <div className="bg-red-50 border-2 border-red-200 text-red-800 px-4 py-3 rounded-lg mb-6">
+                  ✕ {error}
                 </div>
               )}
 
@@ -101,9 +122,10 @@ export default function Contact() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg hover:shadow-xl hover:scale-105"
+                  disabled={loading}
+                  className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg hover:shadow-xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Wyślij wiadomość
+                  {loading ? 'Wysyłanie...' : 'Wyślij wiadomość'}
                 </button>
               </form>
             </div>
@@ -153,11 +175,11 @@ export default function Contact() {
               <div className="space-y-3 text-sm">
                 <div>
                   <p className="font-semibold text-gray-800">Poniedziałek - Piątek</p>
-                  <p className="text-gray-700">10:00 - 15:45</p>
+                  <p className="text-gray-700">9:00 - 15:30</p>
                 </div>
                 <div>
                   <p className="font-semibold text-gray-800">Sobota</p>
-                  <p className="text-gray-700">10:00 - 14:45</p>
+                  <p className="text-gray-700">9:00 - 14:00</p>
                 </div>
                 <div>
                   <p className="font-semibold text-gray-800">Niedziela</p>

@@ -86,7 +86,7 @@ export default function Footer() {
               </div>
               <div className="flex items-start gap-3">
                 <FiClock className="text-orange-500 flex-shrink-0 mt-1 text-lg" />
-                <span className="text-white">Pon-Pt: 10:00-15:45</span>
+                <span className="text-white">Pon-Pt: 9:00-15:30 | Sob: 9:00-14:00</span>
               </div>
               <div className="flex items-start gap-3">
                 <FiMail className="text-orange-500 flex-shrink-0 mt-1 text-lg" />

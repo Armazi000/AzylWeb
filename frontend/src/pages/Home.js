@@ -147,34 +147,30 @@ export default function Home() {
           <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
             Współpracujemy z gminami regionu, zapewniając opiekę bezdomnym zwierzętom.
           </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <button className="px-6 py-2 bg-gray-100 text-gray-700 rounded-full font-medium hover:bg-orange-100 hover:text-orange-700 transition-colors">
-              Gmina Piława Górna
-            </button>
-            <button className="px-6 py-2 bg-gray-100 text-gray-700 rounded-full font-medium hover:bg-orange-100 hover:text-orange-700 transition-colors">
-              Gmina Dobromierz
-            </button>
-            <button className="px-6 py-2 bg-gray-100 text-gray-700 rounded-full font-medium hover:bg-orange-100 hover:text-orange-700 transition-colors">
-              Gmina Niemcza
-            </button>
-            <button className="px-6 py-2 bg-gray-100 text-gray-700 rounded-full font-medium hover:bg-orange-100 hover:text-orange-700 transition-colors">
-              Gmina Pieszyce
-            </button>
-            <button className="px-6 py-2 bg-gray-100 text-gray-700 rounded-full font-medium hover:bg-orange-100 hover:text-orange-700 transition-colors">
-              Gmina Kobierzyce
-            </button>
-            <button className="px-6 py-2 bg-gray-100 text-gray-700 rounded-full font-medium hover:bg-orange-100 hover:text-orange-700 transition-colors">
-              Gmina Łagiewniki
-            </button>
-            <button className="px-6 py-2 bg-gray-100 text-gray-700 rounded-full font-medium hover:bg-orange-100 hover:text-orange-700 transition-colors">
-              Gmina Wiejska Dzierżoniów
-            </button>
-            <button className="px-6 py-2 bg-gray-100 text-gray-700 rounded-full font-medium hover:bg-orange-100 hover:text-orange-700 transition-colors">
-              Gmina Bielawa
-            </button>
-            <button className="px-6 py-2 bg-gray-100 text-gray-700 rounded-full font-medium hover:bg-orange-100 hover:text-orange-700 transition-colors">
-              Gmina Miejska Dzierżoniów
-            </button>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
+            {[
+              { name: 'Gmina Dzierżoniów', image: '/dzierzoniow.png' },
+              { name: 'Gmina Piława Górna', image: '/pilawa-gorna.png' },
+              { name: 'Gmina Dobromierz', image: '/dobromierz.png' },
+              { name: 'Gmina Bielawa', image: '/bielawa.png' },
+              { name: 'Gmina Niemcza', image: '/niemcza.png' },
+              { name: 'Gmina Pieszyce', image: '/pieszyce.png' },
+              { name: 'Gmina Kobierzyce', image: '/kobierzyce.png' },
+              { name: 'Gmina Łagiewniki', image: '/lagiewniki.png' },
+            ].map((town, index) => (
+              <div key={index} className="flex flex-col items-center group cursor-pointer">
+                <div className="w-24 h-24 md:w-28 md:h-28 bg-gray-50 rounded-lg shadow-md overflow-hidden flex items-center justify-center hover:shadow-lg transition-shadow duration-300 border border-gray-200">
+                  <img 
+                    src={town.image} 
+                    alt={town.name}
+                    className="w-full h-full object-contain p-2 group-hover:scale-110 transition-transform duration-300"
+                  />
+                </div>
+                <p className="mt-3 text-sm font-semibold text-gray-700 text-center group-hover:text-orange-600 transition-colors">
+                  {town.name}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

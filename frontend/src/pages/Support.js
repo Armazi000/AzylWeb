@@ -22,6 +22,7 @@ const afterPhotos = [
 export default function Support() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [sliderPosition, setSliderPosition] = useState(50);
+  const [containerWidth, setContainerWidth] = useState(0);
   const containerRef = useRef(null);
   const isDragging = useRef(false);
 
@@ -52,6 +53,10 @@ export default function Support() {
   };
 
   React.useEffect(() => {
+    if (containerRef.current) {
+      setContainerWidth(containerRef.current.offsetWidth);
+    }
+
     const handleMouseMoveEvent = (e) => {
       if (isDragging.current) {
         handleSliderChange(e);
@@ -60,9 +65,18 @@ export default function Support() {
     
     document.addEventListener('mousemove', handleMouseMoveEvent);
     document.addEventListener('mouseup', handleMouseUp);
+    
+    const handleResize = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    
     return () => {
       document.removeEventListener('mousemove', handleMouseMoveEvent);
       document.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -122,13 +136,14 @@ export default function Support() {
 
                 {/* After Image (Slider Overlay) */}
                 <div
-                  className="absolute inset-0 overflow-hidden"
+                  className="absolute top-0 left-0 h-full overflow-hidden"
                   style={{ width: `${sliderPosition}%` }}
                 >
                   <img
                     src={afterPhotos[currentIndex]}
                     alt="Po"
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="h-full object-cover"
+                    style={{ width: `${containerWidth}px` }}
                     onError={(e) => {
                       e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect fill="%23e0e0e0" width="400" height="300"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23999" font-size="18">Brak zdjęcia</text></svg>';
                     }}

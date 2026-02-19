@@ -117,26 +117,27 @@ export default function Support() {
               {/* Main Slider Container */}
               <div
                 ref={containerRef}
-                className="relative w-full rounded-lg overflow-hidden shadow-lg cursor-col-resize select-none"
+                className="relative w-full rounded-lg overflow-hidden shadow-lg select-none"
                 style={{ height: '400px', maxHeight: '500px' }}
-                onMouseDown={handleMouseDown}
-                onTouchStart={handleMouseDown}
-                onTouchMove={handleSliderChange}
-                onTouchEnd={handleMouseUp}
               >
                 {/* After Image (Background) */}
                 <img
                   src={afterPhotos[currentIndex]}
                   alt="Po"
-                  className="absolute inset-0 w-full h-full"
-                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  className="absolute top-0 left-0 h-full"
+                  style={{
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                    width: containerWidth ? `${containerWidth}px` : '100%'
+                  }}
                 />
 
                 {/* Before Image (Overlay with Clip Mask) */}
                 <div
                   className="absolute top-0 left-0 h-full overflow-hidden"
                   style={{
-                    width: `${sliderPosition}%`
+                    width: `${sliderPosition}%`,
+                    pointerEvents: 'none'
                   }}
                 >
                   <img
@@ -146,18 +147,31 @@ export default function Support() {
                     style={{
                       objectFit: 'cover',
                       objectPosition: 'center',
-                      width: containerWidth || '100%'
+                      width: containerWidth ? `${containerWidth}px` : '100%'
                     }}
                   />
                 </div>
 
                 {/* Slider Handle */}
                 <div
-                  className="absolute top-0 bottom-0 w-1 bg-white shadow-lg hover:bg-orange-500 transition-colors"
+                  role="slider"
+                  tabIndex={0}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-valuenow={Math.round(sliderPosition)}
+                  className="absolute top-0 bottom-0 w-1 bg-white shadow-lg transition-colors"
+                  onMouseDown={(e) => { e.preventDefault(); isDragging.current = true; }}
+                  onTouchStart={(e) => { e.preventDefault(); isDragging.current = true; }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'ArrowLeft') setSliderPosition((p) => Math.max(0, p - 5));
+                    if (e.key === 'ArrowRight') setSliderPosition((p) => Math.min(100, p + 5));
+                  }}
                   style={{
                     left: `${sliderPosition}%`,
                     transform: 'translateX(-50%)',
                     cursor: 'col-resize',
+                    zIndex: 5,
+                    pointerEvents: 'auto'
                   }}
                 >
                   {/* Handle Icon */}

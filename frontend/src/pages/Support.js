@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
-const afterPhotos = [
+const beforePhotos = [
   '/shelter/foto11.jpg',
   '/shelter/foto12.jpg',
   '/shelter/foto13.jpg',
@@ -10,7 +10,7 @@ const afterPhotos = [
   '/shelter/foto16.jpg'
 ];
 
-const beforePhotos = [
+const afterPhotos = [
   '/shelter/foto1-300x200.jpg',
   '/shelter/foto2-300x200.jpg',
   '/shelter/foto3-300x200.jpg',
@@ -27,11 +27,11 @@ export default function Support() {
   const isDragging = useRef(false);
 
   const handleSliderChange = (e) => {
-    if (containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect();
-      const newPosition = ((e.clientX || e.touches?.[0].clientX) - rect.left) / rect.width * 100;
-      setSliderPosition(Math.max(0, Math.min(100, newPosition)));
-    }
+    if (!isDragging.current || !containerRef.current) return;
+    
+    const rect = containerRef.current.getBoundingClientRect();
+    const newPosition = ((e.clientX || e.touches?.[0].clientX) - rect.left) / rect.width * 100;
+    setSliderPosition(Math.max(0, Math.min(100, newPosition)));
   };
 
   const handleMouseDown = () => {
@@ -120,8 +120,6 @@ export default function Support() {
                 className="relative w-full rounded-lg overflow-hidden shadow-lg cursor-col-resize select-none"
                 style={{ height: '400px', maxHeight: '500px' }}
                 onMouseDown={handleMouseDown}
-                onMouseMove={handleSliderChange}
-                onMouseUp={handleMouseUp}
                 onTouchStart={handleMouseDown}
                 onTouchMove={handleSliderChange}
                 onTouchEnd={handleMouseUp}

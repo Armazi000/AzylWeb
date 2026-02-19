@@ -11,12 +11,12 @@ const beforePhotos = [
 ];
 
 const afterPhotos = [
-  '/shelter/foto1-300-200.jpg',
-  '/shelter/foto2-300-200.jpg',
-  '/shelter/foto3-300-200.jpg',
-  '/shelter/foto4-300-200.jpg',
-  '/shelter/foto5-300-200.jpg',
-  '/shelter/foto6-300-200.jpg'
+  '/shelter/foto1-300x200.jpg',
+  '/shelter/foto2-300x200.jpg',
+  '/shelter/foto3-300x200.jpg',
+  '/shelter/foto4-300x200.jpg',
+  '/shelter/foto5-300x200.jpg',
+  '/shelter/foto6-300x200.jpg'
 ];
 
 export default function Support() {

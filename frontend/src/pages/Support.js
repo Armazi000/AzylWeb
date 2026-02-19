@@ -1,7 +1,26 @@
-import React from 'react';
-import { FiCheck } from 'react-icons/fi';
+import React, { useState } from 'react';
+
+const beforePhotos = [
+  '/shelter/foto11.jpg',
+  '/shelter/foto12.jpg',
+  '/shelter/foto13.jpg',
+  '/shelter/foto14.jpg',
+  '/shelter/foto15.jpg',
+  '/shelter/foto16.jpg'
+];
+
+const afterPhotos = [
+  '/shelter/foto1-300-200.jpg',
+  '/shelter/foto2-300-200.jpg',
+  '/shelter/foto3-300-200.jpg',
+  '/shelter/foto4-300-200.jpg',
+  '/shelter/foto5-300-200.jpg',
+  '/shelter/foto6-300-200.jpg'
+];
 
 export default function Support() {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
   return (
     <div className="fade-in">
       {/* Header */}
@@ -32,43 +51,62 @@ export default function Support() {
               <p className="text-gray-700"><strong>Adres:</strong> ul. Brzegowa 151, 58-200 Dzierżoniów</p>
             </div>
 
-            <h4 className="font-semibold text-gray-800 mb-4">Co udało nam się osiągnąć dzięki Twojej pomocy:</h4>
-            <div className="space-y-3">
-              <div className="flex gap-3">
-                <FiCheck className="text-green-600 flex-shrink-0 mt-1 text-xl" />
-                <div>
-                  <p className="font-semibold text-gray-800">2009-2010</p>
-                  <p className="text-gray-700">Zakupiliśmy nowe kojce dla naszych psów</p>
+            <h4 className="font-semibold text-gray-800 mb-8">Nasza transformacja - Przed i Po:</h4>
+            
+            {/* Main Gallery */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+              {/* Before */}
+              <div className="bg-gradient-to-b from-gray-100 to-gray-50 rounded-lg p-4 shadow-md">
+                <h5 className="text-center font-bold text-lg text-gray-700 mb-4">Przed</h5>
+                <div className="relative bg-white rounded-lg overflow-hidden shadow-md">
+                  <img 
+                    src={beforePhotos[selectedIndex]} 
+                    alt={`Schronisko przed - zdjęcie ${selectedIndex + 1}`}
+                    className="w-full h-96 object-cover"
+                    onError={(e) => {
+                      e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200"><rect fill="%23e0e0e0" width="300" height="200"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23999" font-size="16">Brak zdjęcia</text></svg>';
+                    }}
+                  />
                 </div>
               </div>
-              <div className="flex gap-3">
-                <FiCheck className="text-green-600 flex-shrink-0 mt-1 text-xl" />
-                <div>
-                  <p className="font-semibold text-gray-800">2010-2011</p>
-                  <p className="text-gray-700">Zbudowaliśmy sale zabiegowe i pielęgnacyjne</p>
+
+              {/* After */}
+              <div className="bg-gradient-to-b from-green-100 to-green-50 rounded-lg p-4 shadow-md">
+                <h5 className="text-center font-bold text-lg text-green-700 mb-4">Po</h5>
+                <div className="relative bg-white rounded-lg overflow-hidden shadow-md">
+                  <img 
+                    src={afterPhotos[selectedIndex]} 
+                    alt={`Schronisko po - zdjęcie ${selectedIndex + 1}`}
+                    className="w-full h-96 object-cover"
+                    onError={(e) => {
+                      e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200"><rect fill="%23e0e0e0" width="300" height="200"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23999" font-size="16">Brak zdjęcia</text></svg>';
+                    }}
+                  />
                 </div>
               </div>
-              <div className="flex gap-3">
-                <FiCheck className="text-green-600 flex-shrink-0 mt-1 text-xl" />
-                <div>
-                  <p className="font-semibold text-gray-800">2011-2012</p>
-                  <p className="text-gray-700">Zrobiliśmy remont kuchni schroniska</p>
-                </div>
-              </div>
-              <div className="flex gap-3">
-                <FiCheck className="text-green-600 flex-shrink-0 mt-1 text-xl" />
-                <div>
-                  <p className="font-semibold text-gray-800">2012-2013</p>
-                  <p className="text-gray-700">Wykonaliśmy przyłącze wody</p>
-                </div>
-              </div>
-              <div className="flex gap-3">
-                <FiCheck className="text-green-600 flex-shrink-0 mt-1 text-xl" />
-                <div>
-                  <p className="font-semibold text-gray-800">2014-2017</p>
-                  <p className="text-gray-700">Ulepszaliśmy wybiegi, place zabaw i ogrodzenia</p>
-                </div>
-              </div>
+            </div>
+
+            {/* Navigation */}
+            <div className="flex justify-center gap-2 mb-8 flex-wrap">
+              {beforePhotos.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedIndex(index)}
+                  className={`w-10 h-10 rounded-full font-semibold transition-all ${
+                    selectedIndex === index
+                      ? 'bg-orange-600 text-white scale-110 shadow-lg'
+                      : 'bg-gray-300 text-gray-700 hover:bg-gray-400'
+                  }`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+
+            {/* Info */}
+            <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-sm text-gray-700">
+              <p className="font-semibold mb-2">💡 Widoku zdjęcie {selectedIndex + 1} z {beforePhotos.length}</p>
+              <p>Dzięki Waszemu wsparciu mogliśmy dokonać znaczących ulepszeń w schronisku. Porównaj zdjęcia przed i po, aby zobaczyć zmianę!</p>
             </div>
           </div>
 
@@ -98,7 +136,6 @@ export default function Support() {
                 Pomóż nam zaopiekować się naszymi psami! Potrzebujemy wolontariuszy do:
               </p>
               <ul className="space-y-2 text-gray-700 mt-4">
-                <li>✓ Codziennej opieki i karmienia</li>
                 <li>✓ Czyszczenia i utrzymania</li>
                 <li>✓ Spacerów i socjalizacji psów</li>
                 <li>✓ Organizacji akcji zbiórkowych</li>

@@ -142,10 +142,11 @@ export default function Support() {
                   <img
                     src={beforePhotos[currentIndex]}
                     alt="Przed"
-                    className="absolute top-0 left-0 w-full h-full"
+                    className="absolute top-0 left-0 h-full"
                     style={{
                       objectFit: 'cover',
-                      objectPosition: 'center'
+                      objectPosition: 'center',
+                      width: containerWidth || '100%'
                     }}
                   />
                 </div>

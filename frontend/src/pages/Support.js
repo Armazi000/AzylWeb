@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
-const beforePhotos = [
+const afterPhotos = [
   '/shelter/foto11.jpg',
   '/shelter/foto12.jpg',
   '/shelter/foto13.jpg',
@@ -10,7 +10,7 @@ const beforePhotos = [
   '/shelter/foto16.jpg'
 ];
 
-const afterPhotos = [
+const beforePhotos = [
   '/shelter/foto1-300x200.jpg',
   '/shelter/foto2-300x200.jpg',
   '/shelter/foto3-300x200.jpg',
@@ -140,8 +140,9 @@ export default function Support() {
                     width: `${sliderPosition}%`,
                     zIndex: 2,
                     backgroundImage: `url('${afterPhotos[currentIndex]}')`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center'
+                    backgroundSize: '100% 100%',
+                    backgroundPosition: 'left center',
+                    backgroundRepeat: 'no-repeat'
                   }}
                 >
                 </div>

@@ -120,40 +120,35 @@ export default function Support() {
                 className="relative w-full rounded-lg overflow-hidden shadow-lg cursor-col-resize select-none"
                 style={{ height: '400px', maxHeight: '500px' }}
                 onMouseDown={handleMouseDown}
+                onMouseMove={handleSliderChange}
+                onMouseUp={handleMouseUp}
                 onTouchStart={handleMouseDown}
                 onTouchMove={handleSliderChange}
                 onTouchEnd={handleMouseUp}
               >
-                {/* Before Image (Left Side) */}
+                {/* After Image (Background) */}
+                <img
+                  src={afterPhotos[currentIndex]}
+                  alt="Po"
+                  className="absolute inset-0 w-full h-full"
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                />
+
+                {/* Before Image (Overlay with Clip Mask) */}
                 <div
                   className="absolute top-0 left-0 h-full overflow-hidden"
                   style={{
-                    width: `${sliderPosition}%`,
-                    zIndex: 1
+                    width: `${sliderPosition}%`
                   }}
                 >
                   <img
                     src={beforePhotos[currentIndex]}
                     alt="Przed"
-                    className="absolute top-0 left-0 h-full"
-                    style={{ objectFit: 'cover' }}
-                  />
-                </div>
-
-                {/* After Image (Right Side) */}
-                <div
-                  className="absolute top-0 h-full overflow-hidden"
-                  style={{
-                    right: 0,
-                    width: `${100 - sliderPosition}%`,
-                    zIndex: 1
-                  }}
-                >
-                  <img
-                    src={afterPhotos[currentIndex]}
-                    alt="Po"
-                    className="absolute top-0 right-0 h-full"
-                    style={{ objectFit: 'cover' }}
+                    className="absolute top-0 left-0 w-full h-full"
+                    style={{
+                      objectFit: 'cover',
+                      objectPosition: 'center'
+                    }}
                   />
                 </div>
 

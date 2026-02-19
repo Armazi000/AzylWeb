@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const beforePhotos = [
   '/shelter/foto11.jpg',
@@ -19,8 +19,6 @@ const afterPhotos = [
 ];
 
 export default function Support() {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
   return (
     <div className="fade-in">
       {/* Header */}
@@ -53,60 +51,47 @@ export default function Support() {
 
             <h4 className="font-semibold text-gray-800 mb-8">Nasza transformacja - Przed i Po:</h4>
             
-            {/* Main Gallery */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-              {/* Before */}
-              <div className="bg-gradient-to-b from-gray-100 to-gray-50 rounded-lg p-4 shadow-md">
-                <h5 className="text-center font-bold text-lg text-gray-700 mb-4">Przed</h5>
-                <div className="relative bg-white rounded-lg overflow-hidden shadow-md">
-                  <img 
-                    src={beforePhotos[selectedIndex]} 
-                    alt={`Schronisko przed - zdjęcie ${selectedIndex + 1}`}
-                    className="w-full h-96 object-cover"
-                    onError={(e) => {
-                      e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200"><rect fill="%23e0e0e0" width="300" height="200"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23999" font-size="16">Brak zdjęcia</text></svg>';
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* After */}
-              <div className="bg-gradient-to-b from-green-100 to-green-50 rounded-lg p-4 shadow-md">
-                <h5 className="text-center font-bold text-lg text-green-700 mb-4">Po</h5>
-                <div className="relative bg-white rounded-lg overflow-hidden shadow-md">
-                  <img 
-                    src={afterPhotos[selectedIndex]} 
-                    alt={`Schronisko po - zdjęcie ${selectedIndex + 1}`}
-                    className="w-full h-96 object-cover"
-                    onError={(e) => {
-                      e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200"><rect fill="%23e0e0e0" width="300" height="200"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23999" font-size="16">Brak zdjęcia</text></svg>';
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Navigation */}
-            <div className="flex justify-center gap-2 mb-8 flex-wrap">
+            {/* Photo Grid Gallery */}
+            <div className="space-y-4 mb-8">
               {beforePhotos.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedIndex(index)}
-                  className={`w-10 h-10 rounded-full font-semibold transition-all ${
-                    selectedIndex === index
-                      ? 'bg-orange-600 text-white scale-110 shadow-lg'
-                      : 'bg-gray-300 text-gray-700 hover:bg-gray-400'
-                  }`}
-                >
-                  {index + 1}
-                </button>
+                <div key={index} className="grid grid-cols-2 gap-4">
+                  {/* Before */}
+                  <div className="bg-gradient-to-b from-gray-100 to-gray-50 rounded-lg p-2 shadow-md">
+                    <p className="text-xs font-semibold text-gray-600 mb-2 text-center">Przed</p>
+                    <div className="relative bg-white rounded overflow-hidden shadow-sm">
+                      <img 
+                        src={beforePhotos[index]} 
+                        alt={`Schronisko przed - zdjęcie ${index + 1}`}
+                        className="w-full h-32 object-cover"
+                        onError={(e) => {
+                          e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200"><rect fill="%23e0e0e0" width="300" height="200"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23999" font-size="12">Brak zdjęcia</text></svg>';
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* After */}
+                  <div className="bg-gradient-to-b from-green-100 to-green-50 rounded-lg p-2 shadow-md">
+                    <p className="text-xs font-semibold text-green-600 mb-2 text-center">Po</p>
+                    <div className="relative bg-white rounded overflow-hidden shadow-sm">
+                      <img 
+                        src={afterPhotos[index]} 
+                        alt={`Schronisko po - zdjęcie ${index + 1}`}
+                        className="w-full h-32 object-cover"
+                        onError={(e) => {
+                          e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200"><rect fill="%23e0e0e0" width="300" height="200"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23999" font-size="12">Brak zdjęcia</text></svg>';
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
 
             {/* Info */}
             <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-sm text-gray-700">
-              <p className="font-semibold mb-2">💡 Widoku zdjęcie {selectedIndex + 1} z {beforePhotos.length}</p>
-              <p>Dzięki Waszemu wsparciu mogliśmy dokonać znaczących ulepszeń w schronisku. Porównaj zdjęcia przed i po, aby zobaczyć zmianę!</p>
+              <p className="font-semibold mb-2">💡 Transformacja schroniska</p>
+              <p>Dzięki Waszemu wsparciu mogliśmy dokonać znaczących ulepszeń. Porównaj zdjęcia przed i po, aby zobaczyć zmianę!</p>
             </div>
           </div>
 

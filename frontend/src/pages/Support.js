@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const beforePhotos = [
   '/shelter/foto11.jpg',
@@ -19,6 +20,52 @@ const afterPhotos = [
 ];
 
 export default function Support() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [sliderPosition, setSliderPosition] = useState(50);
+  const containerRef = useRef(null);
+  const isDragging = useRef(false);
+
+  const handleSliderChange = (e) => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const newPosition = ((e.clientX || e.touches?.[0].clientX) - rect.left) / rect.width * 100;
+      setSliderPosition(Math.max(0, Math.min(100, newPosition)));
+    }
+  };
+
+  const handleMouseDown = () => {
+    isDragging.current = true;
+  };
+
+  const handleMouseUp = () => {
+    isDragging.current = false;
+  };
+
+  const goToPrevious = () => {
+    setCurrentIndex((prev) => (prev === 0 ? beforePhotos.length - 1 : prev - 1));
+    setSliderPosition(50);
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev === beforePhotos.length - 1 ? 0 : prev + 1));
+    setSliderPosition(50);
+  };
+
+  React.useEffect(() => {
+    const handleMouseMoveEvent = (e) => {
+      if (isDragging.current) {
+        handleSliderChange(e);
+      }
+    };
+    
+    document.addEventListener('mousemove', handleMouseMoveEvent);
+    document.addEventListener('mouseup', handleMouseUp);
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMoveEvent);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, []);
+
   return (
     <div className="fade-in">
       {/* Header */}
@@ -51,47 +98,107 @@ export default function Support() {
 
             <h4 className="font-semibold text-gray-800 mb-8">Nasza transformacja - Przed i Po:</h4>
             
-            {/* Photo Grid Gallery */}
-            <div className="space-y-4 mb-8">
-              {beforePhotos.map((_, index) => (
-                <div key={index} className="grid grid-cols-2 gap-4">
-                  {/* Before */}
-                  <div className="bg-gradient-to-b from-gray-100 to-gray-50 rounded-lg p-2 shadow-md">
-                    <p className="text-xs font-semibold text-gray-600 mb-2 text-center">Przed</p>
-                    <div className="relative bg-white rounded overflow-hidden shadow-sm">
-                      <img 
-                        src={beforePhotos[index]} 
-                        alt={`Schronisko przed - zdjęcie ${index + 1}`}
-                        className="w-full h-32 object-cover"
-                        onError={(e) => {
-                          e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200"><rect fill="%23e0e0e0" width="300" height="200"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23999" font-size="12">Brak zdjęcia</text></svg>';
-                        }}
-                      />
-                    </div>
-                  </div>
+            {/* Before/After Slider Gallery */}
+            <div className="flex flex-col gap-6 mb-8">
+              {/* Main Slider Container */}
+              <div
+                ref={containerRef}
+                className="relative w-full bg-gray-200 rounded-lg overflow-hidden shadow-lg cursor-col-resize select-none"
+                style={{ maxHeight: '500px' }}
+                onMouseDown={handleMouseDown}
+                onTouchStart={handleMouseDown}
+                onTouchMove={handleSliderChange}
+                onTouchEnd={handleMouseUp}
+              >
+                {/* Before Image (Background) */}
+                <img
+                  src={beforePhotos[currentIndex]}
+                  alt="Przed"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  onError={(e) => {
+                    e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect fill="%23e0e0e0" width="400" height="300"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23999" font-size="18">Brak zdjęcia</text></svg>';
+                  }}
+                />
 
-                  {/* After */}
-                  <div className="bg-gradient-to-b from-green-100 to-green-50 rounded-lg p-2 shadow-md">
-                    <p className="text-xs font-semibold text-green-600 mb-2 text-center">Po</p>
-                    <div className="relative bg-white rounded overflow-hidden shadow-sm">
-                      <img 
-                        src={afterPhotos[index]} 
-                        alt={`Schronisko po - zdjęcie ${index + 1}`}
-                        className="w-full h-32 object-cover"
-                        onError={(e) => {
-                          e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200"><rect fill="%23e0e0e0" width="300" height="200"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23999" font-size="12">Brak zdjęcia</text></svg>';
-                        }}
-                      />
+                {/* After Image (Slider Overlay) */}
+                <div
+                  className="absolute inset-0 overflow-hidden"
+                  style={{ width: `${sliderPosition}%` }}
+                >
+                  <img
+                    src={afterPhotos[currentIndex]}
+                    alt="Po"
+                    className="w-full h-full object-cover"
+                    style={{ width: `${100 / (sliderPosition / 100)}%` }}
+                    onError={(e) => {
+                      e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect fill="%23e0e0e0" width="400" height="300"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23999" font-size="18">Brak zdjęcia</text></svg>';
+                    }}
+                  />
+                </div>
+
+                {/* Slider Handle */}
+                <div
+                  className="absolute top-0 bottom-0 w-1 bg-white shadow-lg hover:bg-orange-500 transition-colors"
+                  style={{
+                    left: `${sliderPosition}%`,
+                    transform: 'translateX(-50%)',
+                    cursor: 'col-resize',
+                  }}
+                >
+                  {/* Handle Icon */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-lg">
+                    <div className="flex gap-1">
+                      <svg className="w-4 h-4 text-gray-800" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M8 4a1 1 0 011 1v10a1 1 0 11-2 0V5a1 1 0 011-1z" />
+                      </svg>
+                      <svg className="w-4 h-4 text-gray-800" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M11 4a1 1 0 001 1v10a1 1 0 11-2 0V5a1 1 0 011-1z" />
+                      </svg>
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
 
-            {/* Info */}
-            <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-sm text-gray-700">
-              <p className="font-semibold mb-2">💡 Transformacja schroniska</p>
-              <p>Dzięki Waszemu wsparciu mogliśmy dokonać znaczących ulepszeń. Porównaj zdjęcia przed i po, aby zobaczyć zmianę!</p>
+                {/* Before/After Labels */}
+                <div className="absolute top-4 left-4 bg-gray-800 bg-opacity-60 text-white px-3 py-1 rounded text-sm font-semibold">
+                  Przed
+                </div>
+                <div className="absolute top-4 right-4 bg-green-600 bg-opacity-60 text-white px-3 py-1 rounded text-sm font-semibold">
+                  Po
+                </div>
+              </div>
+
+              {/* Navigation Controls */}
+              <div className="flex items-center justify-between gap-4">
+                <button
+                  onClick={goToPrevious}
+                  className="flex-shrink-0 bg-orange-600 hover:bg-orange-700 text-white p-3 rounded-lg transition-colors shadow-md"
+                  aria-label="Poprzednie zdjęcie"
+                >
+                  <FiChevronLeft size={24} />
+                </button>
+
+                {/* Counter */}
+                <div className="flex-1 text-center">
+                  <p className="text-gray-700 font-semibold">
+                    Zdjęcie {currentIndex + 1} z {beforePhotos.length}
+                  </p>
+                  <p className="text-sm text-gray-500">Przeciągnij slider aby porównać</p>
+                </div>
+
+                <button
+                  onClick={goToNext}
+                  className="flex-shrink-0 bg-orange-600 hover:bg-orange-700 text-white p-3 rounded-lg transition-colors shadow-md"
+                  aria-label="Następne zdjęcie"
+                >
+                  <FiChevronRight size={24} />
+                </button>
+              </div>
+
+              {/* Info */}
+              <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-sm text-gray-700">
+                <p className="font-semibold mb-2">💡 Transformacja schroniska</p>
+                <p>Przeciągnij białą linię aby porównać stan przed i po modernizacji. Używaj strzałek aby przejrzeć pozostałe zdjęcia.</p>
+              </div>
             </div>
           </div>
 

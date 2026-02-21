@@ -1,98 +1,143 @@
-🐾 Azyl – Dog Shelter Website
+# 🐾 Azyl – Dog Shelter Website  
 
-Official website for a local dog shelter built to help promote adoption, share information, and make it easier for people to support the shelter.
+> Full-stack web application built to support a local dog shelter and improve adoption visibility.
 
-🔗 Live preview:
+🌍 **Live Demo**  
 https://azyl-web-vbk3j.ondigitalocean.app/
 
-📌 Project Overview
+---
 
-This website was created to:
+## 🌎 Language
 
-Present dogs available for adoption
+🇬🇧 English (this file)  
+🇵🇱 Polish version available in `README.pl.md`
 
-Share information about the shelter
+---
 
-Provide contact details
+## 📌 Overview
 
-Improve the shelter’s online presence
+Azyl is a modern full-stack website created for a dog shelter to:
 
-Make adoption more accessible
+- 🐶 Present dogs available for adoption  
+- 📖 Share shelter information  
+- 📞 Provide contact details  
+- 💛 Increase adoption visibility  
+- 🌐 Strengthen online presence  
 
-🚀 Tech Stack
+The goal was to build something clean, modern, and easy to maintain.
 
-Frontend: React / Next.js / HTML / CSS / Tailwind / etc.
+---
 
-Backend: Node.js / Express / etc.
+## 🛠 Tech Stack
 
-Hosting: DigitalOcean
+### Frontend
+- Next.js
+- React
+- HTML5
+- CSS3
+- Tailwind CSS
 
-Version Control: Git + GitHub
+### Backend
+- Next.js API Routes
+- SQLite (`.db` database)
 
-📂 Project Structure
+### Deployment
+- DigitalOcean
+
+---
+
+## 🏗 Architecture
+
+- Server-side rendering with Next.js  
+- API routes handling backend logic  
+- Local SQLite database for data storage  
+- Component-based UI structure  
+- Tailwind for responsive design  
+
+---
+
+## 📂 Project Structure
+
+```
 .
-├── public/          # Static assets
-├── src/             # Main source code
-│   ├── components/  # UI components
-│   ├── pages/       # Pages / routes
-│   └── ...
-├── .env             # Environment variables (not committed)
+├── public/            # Static assets
+├── src/
+│   ├── components/    # UI components
+│   ├── pages/         # Pages & API routes
+│   ├── styles/        # Global styles
+│   └── lib/           # Database & utilities
+├── database.db        # SQLite database
+├── .env.local         # Environment variables (ignored)
 └── README.md
+```
 
-⚙️ Installation & Development
+---
 
-Clone the repository:
+## ⚙️ Local Development
 
-git clone https://github.com/YOUR_USERNAME/REPO_NAME.git
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/Armazi000/AzylWeb.git
 cd REPO_NAME
+```
 
-Install dependencies:
+### 2️⃣ Install dependencies
 
+```bash
 npm install
+```
 
-Run development server:
+### 3️⃣ Run development server
 
+```bash
 npm run dev
+```
 
-🔐 Environment Variables
+App runs on:
 
-Create a .env file in the root directory:
+```
+http://localhost:3000
+```
 
-DATABASE_URL=your_database_url
-API_KEY=your_api_key
+---
 
-⚠️ Never commit your .env file.
+## 🔐 Environment Variables
 
-🌍 Deployment
+Create a `.env.local` file in the root directory:
 
-Currently deployed on DigitalOcean.
+```
+DATABASE_PATH=./database.db
+```
 
-To deploy:
+⚠️ Never commit `.env.local` to version control.
 
+---
+
+## 🚀 Production Build
+
+```bash
 npm run build
 npm start
+```
 
-(Adjust if you're using something else.)
+---
 
-🎯 Future Improvements
+## 📈 Future Improvements
 
-Admin dashboard for managing dogs
+- SEO optimization
 
-CMS integration
+---
 
-Online adoption form
+## 👨‍💻 Author
 
-Donation integration
+Created by **Armazi**  
+IT Student | Music Producer/Composer | Game Composer | Developer  
 
-SEO optimization
+---
 
-👨‍💻 Author
+## ❤️ Purpose
 
-Created by Armazi
-IT Student | Music Producer | Developer
+This project was created to help a local dog shelter increase adoption opportunities and improve its digital presence.
 
-❤️ About the Shelter
-
-This project was created to support a local dog shelter and help increase adoption visibility.
-
-If you are interested in supporting or adopting — please visit the live website.
+If you’re interested in supporting the shelter — visit the live website.

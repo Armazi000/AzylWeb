@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 export default function DogsForAdoption() {
   const [dogs, setDogs] = useState([]);
@@ -12,10 +9,11 @@ export default function DogsForAdoption() {
     const fetchDogs = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(`${API_URL}/api/dogs/facebook/sync`);
-        setDogs(res.data);
+        const res = await fetch('/api/dogs');
+        const data = await res.json();
+        setDogs(Array.isArray(data) ? data : []);
       } catch (error) {
-        console.error('Error fetching from Facebook:', error);
+        console.error('Error loading dogs:', error);
       } finally {
         setLoading(false);
       }

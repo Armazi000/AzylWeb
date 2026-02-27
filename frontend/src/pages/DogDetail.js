@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
 import { FiArrowLeft } from 'react-icons/fi';
-
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 export default function DogDetail() {
   const { id } = useParams();
@@ -13,8 +10,11 @@ export default function DogDetail() {
   useEffect(() => {
     const fetchDog = async () => {
       try {
-        const res = await axios.get(`${API_URL}/api/dogs/${id}`);
-        setDog(res.data);
+        const res = await fetch('/api/dogs');
+        const data = await res.json();
+        const dogs = Array.isArray(data) ? data : [];
+        const found = dogs.find(d => d.id === id);
+        setDog(found || null);
       } catch (error) {
         console.error('Error fetching dog:', error);
       } finally {

@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { FiPhone, FiMail, FiMapPin, FiClock } from 'react-icons/fi';
 import { FaFacebook } from 'react-icons/fa';
-import axios from 'axios';
-
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -12,33 +9,18 @@ export default function Contact() {
     subject: '',
     message: ''
   });
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError('');
-    
-    try {
-      await axios.post(`${API_URL}/api/messages`, formData);
-      setSubmitted(true);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      setTimeout(() => {
-        setSubmitted(false);
-      }, 3000);
-    } catch (err) {
-      setError('Błąd przy wysyłaniu wiadomości. Spróbuj ponownie.');
-      console.error('Error:', err);
-    } finally {
-      setLoading(false);
-    }
+    const { name, email, subject, message } = formData;
+    const body = `Imię: ${name}\nEmail: ${email}\n\n${message}`;
+    const mailtoLink = `mailto:kontakt@schroniskoazyl.eu?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoLink;
   };
 
   return (
@@ -59,17 +41,7 @@ export default function Contact() {
             <div className="bg-white rounded-lg shadow-md p-8 border-t-4 border-orange-500">
               <h2 className="text-2xl font-bold text-gray-800 mb-6">Wyślij nam wiadomość</h2>
 
-              {submitted && (
-                <div className="bg-green-50 border-2 border-green-200 text-green-800 px-4 py-3 rounded-lg mb-6">
-                  ✓ Dziękujemy! Twoja wiadomość została wysłana. Skontaktujemy się wkrótce.
-                </div>
-              )}
-
-              {error && (
-                <div className="bg-red-50 border-2 border-red-200 text-red-800 px-4 py-3 rounded-lg mb-6">
-                  ✕ {error}
-                </div>
-              )}
+              <p className="text-gray-600 mb-4 text-sm">Po kliknięciu "Wyślij" otworzy się Twój program pocztowy z wypełnioną wiadomością.</p>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -122,10 +94,9 @@ export default function Contact() {
                 </div>
                 <button
                   type="submit"
-                  disabled={loading}
-                  className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg hover:shadow-xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg hover:shadow-xl hover:scale-105"
                 >
-                  {loading ? 'Wysyłanie...' : 'Wyślij wiadomość'}
+                  Wyślij wiadomość
                 </button>
               </form>
             </div>

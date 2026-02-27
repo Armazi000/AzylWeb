@@ -1,23 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
-import axios from 'axios';
-
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 export default function Home() {
-  const [stats, setStats] = useState({ total: 0, available: 0, adopted: 0, pending: 0 });
   const [recentDogs, setRecentDogs] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [statsRes, dogsRes] = await Promise.all([
-          axios.get(`${API_URL}/api/stats`),
-          axios.get(`${API_URL}/api/dogs`)
-        ]);
-        setStats(statsRes.data);
-        setRecentDogs(dogsRes.data.slice(0, 6));
+        const res = await fetch('/api/dogs');
+        const data = await res.json();
+        const dogs = Array.isArray(data) ? data : [];
+        setRecentDogs(dogs.slice(0, 6));
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -28,7 +22,7 @@ export default function Home() {
   return (
     <div className="fade-in">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-orange-600 via-orange-500 to-orange-400 text-white py-32 relative overflow-hidden" style={{backgroundImage: 'url(/hero-animals.jpg)', backgroundSize: 'cover', backgroundPosition: 'top'}}>
+      <section className="bg-gradient-to-r from-orange-600 via-orange-500 to-orange-400 text-white py-32 relative overflow-hidden" style={{backgroundImage: 'url(/hero-animals.jpg)', backgroundSize: 'cover', backgroundPosition: 'center'}}>
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -103,17 +97,17 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="text-6xl mb-4">💙</div>
+              <img src="heart.png" alt="Opieka z miłością" className="mx-auto mb-4" />
               <h3 className="text-2xl font-bold text-gray-800 mb-3">Opieka z miłością</h3>
               <p className="text-gray-600">Każdy pies w naszym schronisku otrzymuje pełną opiekę medyczną, odżywienie i miłość.</p>
             </div>
             <div className="text-center">
-              <div className="text-6xl mb-4">🏥</div>
+              <img src="opieka2.png" alt="Opieka medyczna" className="mx-auto mb-4" />
               <h3 className="text-2xl font-bold text-gray-800 mb-3">Opieka medyczna</h3>
               <p className="text-gray-600">Współpracujemy z profesjonalnymi weterynarzami, aby zapewnić najlepszą opiekę zdrowotną.</p>
             </div>
             <div className="text-center">
-              <div className="text-6xl mb-4">🏡</div>
+              <img src="dom.png" alt="Nowy dom" className="mx-auto mb-4" />
               <h3 className="text-2xl font-bold text-gray-800 mb-3">Nowy dom</h3>
               <p className="text-gray-600">Naszym celem jest znaleźć każdemu psu kochającą rodzinę i stały dom.</p>
             </div>
@@ -150,6 +144,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
             {[
               { name: 'Gmina Dzierżoniów', image: '/dzierzoniow.png' },
+              { name: 'Gmina Miejska Dzierżoniów', image: '/dzierzoniowmiejski.png' },
               { name: 'Gmina Piława Górna', image: '/pilawa-gorna.png' },
               { name: 'Gmina Dobromierz', image: '/dobromierz.png' },
               { name: 'Gmina Bielawa', image: '/bielawa.png' },

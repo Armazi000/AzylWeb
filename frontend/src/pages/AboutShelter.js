@@ -26,7 +26,7 @@ export default function AboutShelter() {
                 Przez lata borykało się z wieloma problemami. Jednak 11 grudnia 2004 roku wybrany został nowy zarząd, który wszystkie swoje działania skierował na rozwój i poprawianie warunków bytowych znajdujących się w nim zwierząt.
               </p>
               <p className="text-gray-700 leading-relaxed">
-                Dzisiaj nasze schronisko może zapewnić schronienie 250 psom i wciąż się rozwija dzięki hojnym darowiznom, szczególnie z inicjatywy 1,5% podatku, co pozwala nam na dokonywanie znaczących ulepszeń w naszych urządzeniach każdego roku.
+                Dzisiaj nasze schronisko może zapewnić schronienie 120 psom i wciąż się rozwija dzięki hojnym darowiznom, szczególnie z inicjatywy 1,5% podatku, co pozwala nam na dokonywanie znaczących ulepszeń w naszych urządzeniach każdego roku.
               </p>
             </section>
 
@@ -76,9 +76,7 @@ export default function AboutShelter() {
             {/* Team */}
             <section className="bg-white rounded-lg shadow-md p-8 border-l-4 border-orange-500">
               <h2 className="text-3xl font-bold text-gray-800 mb-4">Zarząd</h2>
-              <p className="text-gray-700 mb-6">
-                Sukces Schroniska AZYL zależy od członków zarządu którzy bez zmęczenia pracują, aby zaopiekować się naszymi zwierzętami.
-              </p>
+              <br></br>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-orange-50 border-l-4 border-orange-500 pl-4 py-3">
                   <h4 className="font-semibold text-gray-800">Jerzy Thomalla</h4>
@@ -110,7 +108,7 @@ export default function AboutShelter() {
                 </div>
                 <div className="pb-4 border-b border-orange-200">
                   <p className="text-gray-600 font-semibold">Pojemność</p>
-                  <p className="text-gray-800 text-lg font-bold">250 psów</p>
+                  <p className="text-gray-800 text-lg font-bold">120 psów</p>
                 </div>
                 <div className="pb-4 border-b border-orange-200">
                   <p className="text-gray-600 font-semibold">Lokalizacja</p>

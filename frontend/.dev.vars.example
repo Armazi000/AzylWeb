@@ -1,0 +1,6 @@
+# Cloudflare Pages local dev secrets
+# Copy this file to .dev.vars and fill in your values
+# NEVER commit .dev.vars to git!
+
+FACEBOOK_ALBUM_ID=your_facebook_album_id_here
+FACEBOOK_ACCESS_TOKEN=your_facebook_access_token_here

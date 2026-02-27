@@ -1,0 +1,74 @@
+[
+  {
+    "id": "1",
+    "name": "Burek",
+    "breed": "Mieszaniec",
+    "age": 3,
+    "gender": "Male",
+    "weight": 18,
+    "color": "Brązowy",
+    "description": "Burek to energiczny i przyjazny pies, który uwielbia spacery i zabawę. Szuka kochającego domu, gdzie będzie mógł biegać i cieszyć się życiem.",
+    "status": "available",
+    "photo": "/shelter/foto1-300x200.jpg"
+  },
+  {
+    "id": "2",
+    "name": "Luna",
+    "breed": "Owczarek niemiecki mix",
+    "age": 2,
+    "gender": "Female",
+    "weight": 22,
+    "color": "Czarno-brązowy",
+    "description": "Luna jest łagodna i oddana. Świetnie dogaduje się z dziećmi i innymi zwierzętami. Marzy o ciepłym domu.",
+    "status": "available",
+    "photo": "/shelter/foto2-300x200.jpg"
+  },
+  {
+    "id": "3",
+    "name": "Reksio",
+    "breed": "Labrador mix",
+    "age": 5,
+    "gender": "Male",
+    "weight": 28,
+    "color": "Złoty",
+    "description": "Reksio to spokojny, doświadczony pies. Idealny towarzysz dla starszych osób lub rodzin z dziećmi.",
+    "status": "available",
+    "photo": "/shelter/foto3-300x200.jpg"
+  },
+  {
+    "id": "4",
+    "name": "Mila",
+    "breed": "Mieszaniec",
+    "age": 1,
+    "gender": "Female",
+    "weight": 12,
+    "color": "Biało-rudy",
+    "description": "Mila to młoda, wesoła suczka pełna energii. Uwielbia się bawić i poznawać nowych ludzi.",
+    "status": "available",
+    "photo": "/shelter/foto4-300x200.jpg"
+  },
+  {
+    "id": "5",
+    "name": "Azor",
+    "breed": "Amstaff mix",
+    "age": 4,
+    "gender": "Male",
+    "weight": 25,
+    "color": "Biały z łatami",
+    "description": "Azor wygląda groźnie, ale jest prawdziwym misiaczkiem. Uwielbia przytulanie i długie spacery.",
+    "status": "available",
+    "photo": "/shelter/foto5-300x200.jpg"
+  },
+  {
+    "id": "6",
+    "name": "Kaja",
+    "breed": "Border Collie mix",
+    "age": 3,
+    "gender": "Female",
+    "weight": 16,
+    "color": "Czarno-biały",
+    "description": "Kaja to inteligentna i aktywna suczka. Potrzebuje właściciela, który zapewni jej dużo ruchu i stymulacji.",
+    "status": "available",
+    "photo": "/shelter/foto6-300x200.jpg"
+  }
+]

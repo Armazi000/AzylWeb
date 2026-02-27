@@ -15,8 +15,7 @@ export default function Footer() {
           {/* Column 1: About */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="text-2xl">🐕</div>
-              <h3 className="text-xl font-bold text-orange-500">Schronisko Azyl</h3>
+              <h3 className="text-xl font-bold text-orange-500">Schronisko AZYL</h3>
             </div>
             <p className="text-sm text-white mb-6 leading-relaxed">
               Stowarzyszenie Przyjaciół Zwierząt "Azyl" w Dzierżoniowie. Pomagamy bezdomnym zwierzętom znaleźć kochające domy.
@@ -102,7 +101,7 @@ export default function Footer() {
       {/* Bottom Footer */}
       <div className="border-t border-[#1f1815] py-6 px-4">
         <div className="container mx-auto px-4 text-center text-sm text-white">
-          © 2026 Schronisko Azyl | KRS: 0000062210 | Stworzone z ❤️ przez <a href="https://github.com/Armazi000" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:text-orange-400">Abyssal Echoes Labs</a>
+          © 2026 Schronisko Azyl | KRS: 0000062210 | Stworzone z ❤️ przez <a href="https://abyssalechoes.com" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:text-orange-400">Abyssal Echoes Labs</a>
         </div>
       </div>
     </footer>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TopBar from './components/TopBar';
 import Navbar from './components/Navbar';
@@ -10,11 +10,7 @@ import Support from './pages/Support';
 import Contact from './pages/Contact';
 import DogDetail from './pages/DogDetail';
 import Przetargi from './pages/Przetargi';
-import AdminLogin from './pages/AdminLogin';
-import AdminDashboard from './pages/AdminDashboard';
 import './App.css';
-
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 function App() {
   return (
@@ -31,8 +27,6 @@ function App() {
             <Route path="/support" element={<Support />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/przetargi" element={<Przetargi />} />
-            <Route path="/admin" element={<AdminLogin />} />
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
           </Routes>
         </main>
         <Footer />

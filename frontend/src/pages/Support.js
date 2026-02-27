@@ -34,10 +34,6 @@ export default function Support() {
     setSliderPosition(Math.max(0, Math.min(100, newPosition)));
   };
 
-  const handleMouseDown = () => {
-    isDragging.current = true;
-  };
-
   const handleMouseUp = () => {
     isDragging.current = false;
   };

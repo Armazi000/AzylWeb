@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiPhone, FiClock, FiMapPin, FiFacebook } from 'react-icons/fi';
+import { FiClock, FiMapPin, FiFacebook } from 'react-icons/fi';
 
 export default function TopBar() {
   return (

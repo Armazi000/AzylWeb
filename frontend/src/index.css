@@ -116,3 +116,181 @@ a, button {
   transform: translateY(-8px);
   box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
 }
+
+/* ========================================
+   Accessibility: Text Size Levels
+   ======================================== */
+html.text-size-normal {
+  font-size: 16px;
+}
+
+html.text-size-large {
+  font-size: 19px;
+}
+
+html.text-size-x-large {
+  font-size: 22px;
+}
+
+/* ========================================
+   Accessibility: High Contrast Mode
+   ======================================== */
+html.high-contrast body {
+  background: #fff !important;
+  color: #000 !important;
+}
+
+html.high-contrast * {
+  border-color: #000 !important;
+}
+
+html.high-contrast p,
+html.high-contrast span,
+html.high-contrast li,
+html.high-contrast td,
+html.high-contrast th,
+html.high-contrast label,
+html.high-contrast div {
+  color: #000 !important;
+}
+
+html.high-contrast h1,
+html.high-contrast h2,
+html.high-contrast h3,
+html.high-contrast h4,
+html.high-contrast h5,
+html.high-contrast h6 {
+  color: #000 !important;
+}
+
+html.high-contrast a {
+  color: #0000EE !important;
+  text-decoration: underline !important;
+}
+
+html.high-contrast a:visited {
+  color: #551A8B !important;
+}
+
+html.high-contrast nav,
+html.high-contrast header,
+html.high-contrast .bg-orange-600,
+html.high-contrast .bg-orange-500 {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+html.high-contrast nav a,
+html.high-contrast nav span,
+html.high-contrast header a,
+html.high-contrast header span,
+html.high-contrast .bg-orange-600 *,
+html.high-contrast .bg-orange-500 * {
+  color: #fff !important;
+}
+
+html.high-contrast footer {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+html.high-contrast footer a,
+html.high-contrast footer span,
+html.high-contrast footer p,
+html.high-contrast footer h3,
+html.high-contrast footer li {
+  color: #fff !important;
+}
+
+html.high-contrast .bg-white,
+html.high-contrast .bg-gray-50,
+html.high-contrast .bg-gray-100,
+html.high-contrast .bg-orange-50 {
+  background-color: #fff !important;
+}
+
+html.high-contrast img {
+  filter: contrast(1.2);
+}
+
+html.high-contrast button:not(.a11y-toggle-btn):not(.a11y-panel button) {
+  background-color: #000 !important;
+  color: #fff !important;
+  border: 2px solid #000 !important;
+}
+
+html.high-contrast button:not(.a11y-toggle-btn):not(.a11y-panel button):hover {
+  background-color: #333 !important;
+}
+
+html.high-contrast input,
+html.high-contrast select,
+html.high-contrast textarea {
+  background-color: #fff !important;
+  color: #000 !important;
+  border: 2px solid #000 !important;
+}
+
+html.high-contrast ::-webkit-scrollbar-thumb {
+  background: #000 !important;
+}
+
+/* ========================================
+   Accessibility Widget Styles
+   ======================================== */
+.a11y-toggle-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #f97316;
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.a11y-toggle-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.a11y-toggle-btn:focus {
+  outline: 3px solid #000;
+  outline-offset: 2px;
+}
+
+html.high-contrast .a11y-toggle-btn {
+  background-color: #000 !important;
+  border: 3px solid #fff !important;
+}
+
+.a11y-panel {
+  position: absolute;
+  bottom: 68px;
+  left: 0;
+  width: 280px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.18);
+  padding: 20px;
+  animation: a11y-slide-up 0.2s ease-out;
+}
+
+html.high-contrast .a11y-panel {
+  border: 3px solid #000 !important;
+}
+
+@keyframes a11y-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

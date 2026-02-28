@@ -9,7 +9,8 @@ export default function DogsForAdoption() {
     const fetchDogs = async () => {
       setLoading(true);
       try {
-        const res = await fetch('/api/dogs');
+        // const res = await fetch('/api/dogs'); // Facebook API — uncomment to re-enable
+        const res = await fetch('/data/dogs.json');
         const data = await res.json();
         setDogs(Array.isArray(data) ? data : []);
       } catch (error) {
@@ -56,7 +57,7 @@ export default function DogsForAdoption() {
                   )}
                   <div className="p-6">
                     <h3 className="text-2xl font-bold text-gray-800 mb-2">{dog.name}</h3>
-                    <p className="text-gray-600 mb-4 font-semibold">{dog.breed || dog.description}</p>
+                    <p className="text-gray-600 mb-4">{dog.description}</p>
                     <div className="flex justify-between items-center mb-4">
                       {dog.age && <p className="text-sm text-gray-500">Wiek: {dog.age} {dog.age === 1 ? 'rok' : 'lat'}</p>}
                       {dog.gender && <p className="text-sm text-gray-500">{dog.gender === 'Male' ? 'Samiec' : 'Samica'}</p>}

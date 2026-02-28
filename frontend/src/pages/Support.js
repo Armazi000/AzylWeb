@@ -253,10 +253,9 @@ export default function Support() {
                 Pomóż nam zaopiekować się naszymi psami! Potrzebujemy wolontariuszy do:
               </p>
               <ul className="space-y-2 text-gray-700 mt-4">
-                <li>✓ Czyszczenia i utrzymania</li>
                 <li>✓ Spacerów i socjalizacji psów</li>
                 <li>✓ Organizacji akcji zbiórkowych</li>
-                <li>✓ Pracy administracyjnej</li>
+                <li>✓ Pomocy w adopcji i promocji schroniska</li>
               </ul>
               <a href="mailto:kontakt@schroniskoazyl.eu" className="mt-4 inline-block text-orange-600 font-semibold hover:text-orange-700">
                 Skontaktuj się, aby zostać wolontariuszem →

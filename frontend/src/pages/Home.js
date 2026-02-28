@@ -8,7 +8,8 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('/api/dogs');
+        // const res = await fetch('/api/dogs'); // Facebook API — uncomment to re-enable
+        const res = await fetch('/data/dogs.json');
         const data = await res.json();
         const dogs = Array.isArray(data) ? data : [];
         setRecentDogs(dogs.slice(0, 6));
@@ -65,7 +66,7 @@ export default function Home() {
                   )}
                   <div className="p-6">
                     <h3 className="text-2xl font-bold text-gray-800 mb-2">{dog.name}</h3>
-                    <p className="text-gray-600 mb-4 font-semibold">{dog.breed}</p>
+                    <p className="text-gray-600 mb-4">{dog.description}</p>
                     {dog.age && <p className="text-sm text-gray-500 mb-3">Wiek: {dog.age} {dog.age === 1 ? 'rok' : 'lat'}</p>}
                     <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
                       dog.status === 'available'

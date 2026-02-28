@@ -1,74 +1,66 @@
 [
   {
     "id": "1",
-    "name": "Burek",
+    "name": "Elmo",
     "breed": "Mieszaniec",
-    "age": 3,
+    "age": 4,
     "gender": "Male",
-    "weight": 18,
-    "color": "Brązowy",
-    "description": "Burek to energiczny i przyjazny pies, który uwielbia spacery i zabawę. Szuka kochającego domu, gdzie będzie mógł biegać i cieszyć się życiem.",
+    "description": "Elmo to piesek średnich rozmiarów. Jest bardzo energicznym psem. Lubi się bawić z człowiekiem, chętnie pójdzie też na spacer. Lubi aktywnie spędzać czas. Wykazuje cechy dominujące, nie każdego pieska jest w stanie zaakceptować. Elmo jest wykastrowany, zaczipowany, posiada również komplet niezbędnych szczepień.",
     "status": "available",
-    "photo": "/shelter/foto1-300x200.jpg"
+    "photo": "/dogs/elmo.jpg"
   },
   {
     "id": "2",
-    "name": "Luna",
+    "name": "Enda",
     "breed": "Owczarek niemiecki mix",
-    "age": 2,
+    "age": 7,
     "gender": "Female",
-    "weight": 22,
-    "color": "Czarno-brązowy",
-    "description": "Luna jest łagodna i oddana. Świetnie dogaduje się z dziećmi i innymi zwierzętami. Marzy o ciepłym domu.",
+
+    "description": "Enda jest suczką średnich rozmiarów. To taka słodka kuleczka na króciutkich nóżkach. Jest bardzo grzeczna i spokojna. Jest bardzo delikatna, chętnie rozdaje całuski. Uwielbia się przytulać. Nie wykazuje cech dominujących, dobrze się dogaduje z innymi pieskami. Enda jest wysterylizowana, zaczipowana, posiada również komplet niezbędnych szczepień.",
     "status": "available",
-    "photo": "/shelter/foto2-300x200.jpg"
+    "photo": "/dogs/enda.jpg"
   },
   {
     "id": "3",
-    "name": "Reksio",
+    "name": "Obis",
     "breed": "Labrador mix",
-    "age": 5,
+    "age": 8,
     "gender": "Male",
-    "weight": 28,
-    "color": "Złoty",
-    "description": "Reksio to spokojny, doświadczony pies. Idealny towarzysz dla starszych osób lub rodzin z dziećmi.",
+    "description": "Obis to pies niewielkich rozmiarów. Jest grzeczny, dobrze się dogaduje z innymi pieskami. Nie wykazuje cech dominujących. Uwielbia kontakt z człowiekiem, bardzo lubi się przytulać. Zawsze jest chętny na spacery. Obis jest wykastrowany, zaczipowany, posiada również komplet niezbędnych szczepień.",
     "status": "available",
-    "photo": "/shelter/foto3-300x200.jpg"
+    "photo": "/dogs/obis.jpg"
   },
   {
     "id": "4",
-    "name": "Mila",
+    "name": "Adek",
     "breed": "Mieszaniec",
-    "age": 1,
+    "age": 11,
     "gender": "Female",
-    "weight": 12,
-    "color": "Biało-rudy",
-    "description": "Mila to młoda, wesoła suczka pełna energii. Uwielbia się bawić i poznawać nowych ludzi.",
+
+    "description": "Adek to pies średnich rozmiarów. Jest bardzo chętny do zabawy, uwielbia się bawić piłeczka. Bardzo też lubi spacerki, na których wszystko go bardzo interesuje i wszędzie musi zajrzeć. Adek szuka domu, w którym będzie jedynym zwierzakiem. Nie bardzo toleruje inne pieski. Adek jest wykastrowany, zaczipowany, posiada również komplet niezbędnych szczepień.",
     "status": "available",
-    "photo": "/shelter/foto4-300x200.jpg"
+    "photo": "/dogs/adek.jpg"
   },
   {
     "id": "5",
-    "name": "Azor",
+    "name": "Fibi",
     "breed": "Amstaff mix",
-    "age": 4,
+    "age": 3,
     "gender": "Male",
-    "weight": 25,
-    "color": "Biały z łatami",
-    "description": "Azor wygląda groźnie, ale jest prawdziwym misiaczkiem. Uwielbia przytulanie i długie spacery.",
+
+    "description": "Fibi jest suczką nieco większych rozmiarów. Początkowo bywa trochę zamknięta w sobie i lekko wycofana do nowych osób. Jest wyczulona na różne gesty, oraz szybki dotyk. Gdy się już do kogoś przekona to staje się bardzo przytulaśna. Fibi jest spokojna i grzeczna. Dobrze się dogaduje z innymi pieskami, ale wykazuje cechy dominujące. Fibi jest wysterylizowana, zaczipowana, posiada również komplet niezbędnych szczepień.",
     "status": "available",
-    "photo": "/shelter/foto5-300x200.jpg"
+    "photo": "/dogs/fibi.jpg"
   },
   {
     "id": "6",
-    "name": "Kaja",
+    "name": "Ptyś",
     "breed": "Border Collie mix",
     "age": 3,
     "gender": "Female",
-    "weight": 16,
-    "color": "Czarno-biały",
-    "description": "Kaja to inteligentna i aktywna suczka. Potrzebuje właściciela, który zapewni jej dużo ruchu i stymulacji.",
+
+    "description": "Ptyś jest psem nieco większych rozmiarów. Ładnie chodzi na smyczy. Lubi się bawić, będzie świetnym towarzyszem górskich wycieczek. Dogaduje się z innymi pieskami, ale wykazuje cechy dominujące. Ma dużo energii, którą musi wyładować. Jest bardzo kontaktowy, czasami też bywa bardzo zaborczy. Nie nadaje się do dzieci. Ptyś jest zaczipowany, wykastrowany, posiada również komplet niezbędnych szczepień.",
     "status": "available",
-    "photo": "/shelter/foto6-300x200.jpg"
+    "photo": "/dogs/ptyś.jpg"
   }
 ]

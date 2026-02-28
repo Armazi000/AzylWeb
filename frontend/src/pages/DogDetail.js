@@ -10,7 +10,8 @@ export default function DogDetail() {
   useEffect(() => {
     const fetchDog = async () => {
       try {
-        const res = await fetch('/api/dogs');
+        // const res = await fetch('/api/dogs'); // Facebook API — uncomment to re-enable
+        const res = await fetch('/data/dogs.json');
         const data = await res.json();
         const dogs = Array.isArray(data) ? data : [];
         const found = dogs.find(d => d.id === id);
@@ -73,7 +74,7 @@ export default function DogDetail() {
           {/* Right Column - Details */}
           <div className="bg-white rounded-lg shadow-lg p-8 h-fit border-t-4 border-orange-500">
             <h1 className="text-4xl font-bold text-gray-800 mb-2">{dog.name}</h1>
-            <p className="text-xl text-gray-600 mb-6">{dog.breed}</p>
+            <p className="text-xl text-gray-600 mb-6">{dog.description}</p>
 
             <div className="mb-6">
               <span className={`inline-block px-4 py-2 rounded-lg text-sm font-semibold ${getStatusColor(dog.status)}`}>
@@ -97,19 +98,7 @@ export default function DogDetail() {
                 </div>
               )}
 
-              {dog.weight && (
-                <div className="pb-4 border-b border-gray-200">
-                  <p className="text-gray-600 text-sm">Waga</p>
-                  <p className="text-2xl font-bold text-gray-800">{dog.weight} kg</p>
-                </div>
-              )}
 
-              {dog.color && (
-                <div className="pb-4 border-b border-gray-200">
-                  <p className="text-gray-600 text-sm">Kolor</p>
-                  <p className="text-2xl font-bold text-gray-800">{dog.color}</p>
-                </div>
-              )}
             </div>
 
             {/* Contact Button */}
@@ -122,13 +111,6 @@ export default function DogDetail() {
           </div>
         </div>
 
-        {/* Description */}
-        {dog.description && (
-          <div className="mt-12 bg-white rounded-lg shadow-md p-8 border-l-4 border-orange-500">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">O {dog.name}</h2>
-            <p className="text-gray-700 leading-relaxed whitespace-pre-line">{dog.description}</p>
-          </div>
-        )}
       </div>
     </div>
   );

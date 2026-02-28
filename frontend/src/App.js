@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TopBar from './components/TopBar';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import AccessibilityWidget from './components/AccessibilityWidget';
 import Home from './pages/Home';
 import DogsForAdoption from './pages/DogsForAdoption';
 import AboutShelter from './pages/AboutShelter';
@@ -30,6 +31,7 @@ function App() {
           </Routes>
         </main>
         <Footer />
+        <AccessibilityWidget />
       </div>
     </Router>
   );

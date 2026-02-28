@@ -1,2 +1,6 @@
 name = "azylweb"
 pages_build_output_dir = "frontend/build"
+
+[vars]
+# Set FACEBOOK_ALBUM_ID and FACEBOOK_ACCESS_TOKEN
+# in Cloudflare Dashboard → Settings → Environment Variables (not here!)

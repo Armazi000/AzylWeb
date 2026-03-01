@@ -10,8 +10,7 @@ export default function DogDetail() {
   useEffect(() => {
     const fetchDog = async () => {
       try {
-        // const res = await fetch('/api/dogs'); // Facebook API — uncomment to re-enable
-        const res = await fetch('/data/dogs.json');
+        const res = await fetch('/api/dogs');
         const data = await res.json();
         const dogs = Array.isArray(data) ? data : [];
         const found = dogs.find(d => d.id === id);

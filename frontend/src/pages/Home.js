@@ -8,8 +8,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const res = await fetch('/api/dogs'); // Facebook API — uncomment to re-enable
-        const res = await fetch('/data/dogs.json');
+        const res = await fetch('/api/dogs');
         const data = await res.json();
         const dogs = Array.isArray(data) ? data : [];
         setRecentDogs(dogs.slice(0, 6));
@@ -47,7 +46,14 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-            <div className="text-center hidden md:block relative h-80">
+            <div className="hidden md:flex justify-end relative h-50 pr-0 lg:pr-0" style={{ marginTop: '-250px', marginRight: '-100px' }}>
+              <div className="text-center" style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.7), 0 0 30px rgba(249, 115, 22, 0.8), 0 0 60px rgba(249, 115, 22, 0.5), 0 0 90px rgba(249, 115, 22, 0.3)' }}>
+                <p className="text-7xl font-bold text-orange-300 mb-2" style={{ textShadow: '3px 3px 10px rgba(0, 0, 0, 0.8), 0 0 40px rgba(249, 115, 22, 0.9), 0 0 80px rgba(249, 115, 22, 0.6)' }}>30</p>
+                <p className="text-3xl font-bold text-white mb-1">Lat istnienia schroniska</p>
+                <p className="text-xl text-orange-200 font-semibold">1996 – 2026</p>
+                <div className="mt-4 h-1 w-20 bg-orange-400 mx-auto rounded-full" style={{ boxShadow: '0 0 16px rgba(249, 115, 22, 0.9)' }}></div>
+                <p className="mt-3 text-base text-orange-100">Trzy dekady pomocy zwierzętom</p>
+              </div>
             </div>
           </div>
         </div>
@@ -142,7 +148,7 @@ export default function Home() {
           <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
             Współpracujemy z gminami regionu, zapewniając opiekę bezdomnym zwierzętom.
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
+          <div className="flex flex-wrap justify-center gap-6">
             {[
               { name: 'Gmina Dzierżoniów', image: '/dzierzoniow.png' },
               { name: 'Gmina Miejska Dzierżoniów', image: '/dzierzoniowmiejski.png' },
@@ -154,7 +160,7 @@ export default function Home() {
               { name: 'Gmina Kobierzyce', image: '/kobierzyce.png' },
               { name: 'Gmina Łagiewniki', image: '/lagiewniki.png' },
             ].map((town, index) => (
-              <div key={index} className="flex flex-col items-center group cursor-pointer">
+              <div key={index} className="flex flex-col items-center group cursor-pointer w-36 md:w-44">
                 <div className="w-24 h-24 md:w-28 md:h-28 bg-gray-50 rounded-lg shadow-md overflow-hidden flex items-center justify-center hover:shadow-lg transition-shadow duration-300 border border-gray-200">
                   <img 
                     src={town.image} 

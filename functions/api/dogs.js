@@ -43,7 +43,7 @@ export async function onRequestGet(context) {
 
   try {
     // Fetch all photos from the album (paginate up to 100)
-    const fbUrl = `https://graph.facebook.com/v21.0/${albumId}/photos?fields=id,name,images,created_time&limit=100&access_token=${accessToken}`;
+    const fbUrl = `https://graph.facebook.com/v25.0/${albumId}/photos?fields=id,name,images,created_time&limit=100&access_token=${accessToken}`;
 
     const fbResponse = await fetch(fbUrl);
     const fbData = await fbResponse.json();

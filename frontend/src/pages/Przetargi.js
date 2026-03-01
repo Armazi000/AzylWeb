@@ -22,46 +22,46 @@ export default function Przetargi() {
     {
       title: "Ogłoszenie zamowienie na sterylizację i kastrację na rok 2024",
       files: [
-        { name: "umowa", filename: "umowa-2024.pdf" },
-        { name: "druk oferty", filename: "druk-oferty-2024.pdf" },
-        { name: "zapytanie ofertowe – sterylizacja", filename: "zapytanie-sterylizacja-2024.pdf" }
+        { name: "umowa", filename: "umowa-sterylizacje-2024.odt" },
+        { name: "druk oferty", filename: "druk-oferty-sterylizacje-2024.odt" },
+        { name: "zapytanie ofertowe – sterylizacja", filename: "zapytanie-ofertowe-sterylizacje-2024.odt" }
       ]
     },
     {
       title: "Ogłoszenie zamówienia na usługi weterynaryjne na rok 2024",
       files: [
-        { name: "druk oferty – weterynarz", filename: "druk-oferty-weterynarz-2024.pdf" },
-        { name: "umowa – załącznik nr 3", filename: "umowa-zalacznik-3-2024.pdf" },
-        { name: "zapytanie ofertowe usługi weterynaryjne", filename: "zapytanie-weterynarz-2024.pdf" }
+        { name: "druk oferty – weterynarz", filename: "druk-oferty-weterynarz-2024.odt" },
+        { name: "umowa – załącznik nr 3", filename: "umowa-zalaczniknr3-weterynarz-2024.doc" },
+        { name: "zapytanie ofertowe usługi weterynaryjne", filename: "zapytanie-ofertowe-uslugi-weterynaryjne-2024.odt" }
       ]
     },
     {
       title: "Konkurs na usługi weterynaryjne na rok 2023",
       files: [
-        { name: "oferta konkursowa weterynarz", filename: "oferta-konkursowa-2023.pdf" },
-        { name: "oświadczenie o spełnianiu warunków", filename: "oswiadczenie-2023.pdf" }
+        { name: "oferta konkursowa weterynarz", filename: "oferta-konkursowa-weterynarz-2023.docx" },
+        { name: "oświadczenie o spełnianiu warunków", filename: "oswiadczenie-o-spelnianiu-warunkow-wetrerynarz-2023.docx" }
       ]
     },
     {
       title: "Ogłoszenie zamówienia na usługi weterynaryjne na rok 2023",
       files: [
-        { name: "druk oferty – weterynarz", filename: "druk-oferty-weterynarz-2023.pdf" },
-        { name: "umowa – załącznik nr 3", filename: "umowa-zalacznik-3-2023.pdf" },
-        { name: "zapytanie ofertowe usługi weterynaryjne", filename: "zapytanie-weterynarz-2023.pdf" }
+        { name: "druk oferty – weterynarz", filename: "druk-oferty-weterynarz-2023.odt" },
+        { name: "umowa – załącznik nr 3", filename: "umowa-zalaczniknr3-weterynarz-2023.doc" },
+        { name: "zapytanie ofertowe", filename: "zapytanie-ofertowe-2023.doc" }
       ]
     },
     {
       title: "Konkurs na usługi weterynaryjne na rok 2022",
       files: [
-        { name: "oferta konkursowa weterynarz", filename: "oferta-konkursowa-2022.pdf" },
-        { name: "oświadczenie o spełnianiu warunków", filename: "oswiadczenie-2022.pdf" }
+        { name: "oferta konkursowa weterynarz", filename: "oferta-konkursowa-weterynarz-2022.docx" },
+        { name: "oświadczenie o spełnianiu warunków", filename: "oswiadczenie-o-spelnianiu-warunkow-wetrerynarz-2022.docx" }
       ]
     },
     {
       title: "Konkurs na usługi weterynaryjne na rok 2021",
       files: [
-        { name: "Oferta konkursowa – Weterynarz", filename: "oferta-konkursowa-2021.pdf" },
-        { name: "Oświadczenie o spełnianiu warunków – Weterynarz", filename: "oswiadczenie-2021.pdf" }
+        { name: "Oferta konkursowa – Weterynarz", filename: "oferta-konkursowa-weterynarz-2021.docx" },
+        { name: "Oświadczenie o spełnianiu warunków – Weterynarz", filename: "oswiadczenie-o-spelnianiu-warunkow-wetrerynarz-2021.docx" }
       ]
     },
     {

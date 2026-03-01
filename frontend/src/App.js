@@ -11,6 +11,7 @@ import Support from './pages/Support';
 import Contact from './pages/Contact';
 import DogDetail from './pages/DogDetail';
 import Przetargi from './pages/Przetargi';
+import NotFound from './pages/NotFound';
 import './App.css';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
             <Route path="/support" element={<Support />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/przetargi" element={<Przetargi />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />

@@ -9,8 +9,7 @@ export default function DogsForAdoption() {
     const fetchDogs = async () => {
       setLoading(true);
       try {
-        // const res = await fetch('/api/dogs'); // Facebook API — uncomment to re-enable
-        const res = await fetch('/data/dogs.json');
+        const res = await fetch('/api/dogs');
         const data = await res.json();
         setDogs(Array.isArray(data) ? data : []);
       } catch (error) {

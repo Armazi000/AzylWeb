@@ -1,5 +1,4 @@
-import React, { useState, useRef } from 'react';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import React from 'react';
 
 const beforePhotos = [
   '/shelter/foto11.jpg',
@@ -20,61 +19,6 @@ const afterPhotos = [
 ];
 
 export default function Support() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [sliderPosition, setSliderPosition] = useState(50);
-  const [containerWidth, setContainerWidth] = useState(0);
-  const containerRef = useRef(null);
-  const isDragging = useRef(false);
-
-  const handleSliderChange = (e) => {
-    if (!isDragging.current || !containerRef.current) return;
-    
-    const rect = containerRef.current.getBoundingClientRect();
-    const newPosition = ((e.clientX || e.touches?.[0].clientX) - rect.left) / rect.width * 100;
-    setSliderPosition(Math.max(0, Math.min(100, newPosition)));
-  };
-
-  const handleMouseUp = () => {
-    isDragging.current = false;
-  };
-
-  const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev === 0 ? beforePhotos.length - 1 : prev - 1));
-    setSliderPosition(50);
-  };
-
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev === beforePhotos.length - 1 ? 0 : prev + 1));
-    setSliderPosition(50);
-  };
-
-  React.useEffect(() => {
-    if (containerRef.current) {
-      setContainerWidth(containerRef.current.offsetWidth);
-    }
-
-    const handleMouseMoveEvent = (e) => {
-      if (isDragging.current) {
-        handleSliderChange(e);
-      }
-    };
-    
-    document.addEventListener('mousemove', handleMouseMoveEvent);
-    document.addEventListener('mouseup', handleMouseUp);
-    
-    const handleResize = () => {
-      if (containerRef.current) {
-        setContainerWidth(containerRef.current.offsetWidth);
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMoveEvent);
-      document.removeEventListener('mouseup', handleMouseUp);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   return (
     <div className="fade-in">
@@ -108,121 +52,57 @@ export default function Support() {
 
             <h4 className="font-semibold text-gray-800 mb-8">Nasza transformacja - Przed i Po:</h4>
             
-            {/* Before/After Slider Gallery */}
-            <div className="flex flex-col gap-6 mb-8">
-              {/* Main Slider Container */}
-              <div
-                ref={containerRef}
-                className="relative w-full rounded-lg overflow-hidden shadow-lg select-none"
-                style={{ height: '400px', maxHeight: '500px' }}
-              >
-                {/* After Image (Background) */}
-                <img
-                  src={afterPhotos[currentIndex]}
-                  alt="Po"
-                  className="absolute top-0 left-0 h-full"
-                  style={{
-                    objectFit: 'cover',
-                    objectPosition: 'center',
-                    width: containerWidth ? `${containerWidth}px` : '100%'
-                  }}
-                />
-
-                {/* Before Image (Overlay with Clip Mask) */}
-                <div
-                  className="absolute top-0 left-0 h-full overflow-hidden"
-                  style={{
-                    width: `${sliderPosition}%`,
-                    pointerEvents: 'none'
-                  }}
-                >
-                  <img
-                    src={beforePhotos[currentIndex]}
-                    alt="Przed"
-                    className="absolute top-0 left-0 h-full"
-                    style={{
-                      objectFit: 'cover',
-                      objectPosition: 'center',
-                      width: containerWidth ? `${containerWidth}px` : '100%'
-                    }}
-                  />
+            {/* Before/After Transformation Section */}
+            <div className="mb-8">
+              {/* Before Section */}
+              <div className="mb-2">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="h-1 flex-1 bg-gradient-to-r from-gray-400 to-gray-300 rounded-full"></div>
+                  <h5 className="text-2xl font-bold text-gray-700 whitespace-nowrap px-4 py-2 bg-gray-100 rounded-full shadow-sm">
+                    📸 Tak było w latach 1996–2004
+                  </h5>
+                  <div className="h-1 flex-1 bg-gradient-to-l from-gray-400 to-gray-300 rounded-full"></div>
                 </div>
-
-                {/* Slider Handle */}
-                <div
-                  role="slider"
-                  tabIndex={0}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                  aria-valuenow={Math.round(sliderPosition)}
-                  className="absolute top-0 bottom-0 w-1 bg-white shadow-lg transition-colors"
-                  onMouseDown={(e) => { e.preventDefault(); isDragging.current = true; }}
-                  onTouchStart={(e) => { e.preventDefault(); isDragging.current = true; }}
-                  onKeyDown={(e) => {
-                    if (e.key === 'ArrowLeft') setSliderPosition((p) => Math.max(0, p - 5));
-                    if (e.key === 'ArrowRight') setSliderPosition((p) => Math.min(100, p + 5));
-                  }}
-                  style={{
-                    left: `${sliderPosition}%`,
-                    transform: 'translateX(-50%)',
-                    cursor: 'col-resize',
-                    zIndex: 5,
-                    pointerEvents: 'auto'
-                  }}
-                >
-                  {/* Handle Icon */}
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-lg">
-                    <div className="flex gap-1">
-                      <svg className="w-4 h-4 text-gray-800" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M8 4a1 1 0 011 1v10a1 1 0 11-2 0V5a1 1 0 011-1z" />
-                      </svg>
-                      <svg className="w-4 h-4 text-gray-800" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M11 4a1 1 0 001 1v10a1 1 0 11-2 0V5a1 1 0 011-1z" />
-                      </svg>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {beforePhotos.map((photo, index) => (
+                    <div key={index} className="relative group overflow-hidden rounded-xl shadow-lg border-2 border-gray-200">
+                      <img src={photo} alt={`Przed ${index + 1}`} className="w-full h-52 object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                      <span className="absolute bottom-2 left-2 bg-gray-800/80 text-white px-3 py-1 rounded-lg text-xs font-bold tracking-wide">PRZED</span>
                     </div>
-                  </div>
-                </div>
-
-                {/* Before/After Labels */}
-                <div className="absolute top-4 left-4 bg-gray-800 bg-opacity-60 text-white px-3 py-1 rounded text-sm font-semibold">
-                  Przed
-                </div>
-                <div className="absolute top-4 right-4 bg-green-600 bg-opacity-60 text-white px-3 py-1 rounded text-sm font-semibold">
-                  Po
+                  ))}
                 </div>
               </div>
 
-              {/* Navigation Controls */}
-              <div className="flex items-center justify-between gap-4">
-                <button
-                  onClick={goToPrevious}
-                  className="flex-shrink-0 bg-orange-600 hover:bg-orange-700 text-white p-3 rounded-lg transition-colors shadow-md"
-                  aria-label="Poprzednie zdjęcie"
-                >
-                  <FiChevronLeft size={24} />
-                </button>
-
-                {/* Counter */}
-                <div className="flex-1 text-center">
-                  <p className="text-gray-700 font-semibold">
-                    Zdjęcie {currentIndex + 1} z {beforePhotos.length}
-                  </p>
-                  <p className="text-sm text-gray-500">Przeciągnij slider aby porównać</p>
+              {/* Arrow Divider */}
+              <div className="flex items-center justify-center my-8">
+                <div className="h-0.5 flex-1 bg-gradient-to-r from-transparent via-orange-400 to-transparent"></div>
+                <div className="mx-6 bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg">
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
                 </div>
-
-                <button
-                  onClick={goToNext}
-                  className="flex-shrink-0 bg-orange-600 hover:bg-orange-700 text-white p-3 rounded-lg transition-colors shadow-md"
-                  aria-label="Następne zdjęcie"
-                >
-                  <FiChevronRight size={24} />
-                </button>
+                <div className="h-0.5 flex-1 bg-gradient-to-r from-transparent via-orange-400 to-transparent"></div>
               </div>
 
-              {/* Info */}
-              <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-sm text-gray-700">
-                <p className="font-semibold mb-2">💡 Transformacja schroniska</p>
-                <p>Przeciągnij białą linię aby porównać stan przed i po modernizacji. Używaj strzałek aby przejrzeć pozostałe zdjęcia.</p>
+              {/* After Section */}
+              <div>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="h-1 flex-1 bg-gradient-to-r from-green-400 to-green-300 rounded-full"></div>
+                  <h5 className="text-2xl font-bold text-green-700 whitespace-nowrap px-4 py-2 bg-green-50 rounded-full shadow-sm">
+                    ✨ A tak jest obecnie
+                  </h5>
+                  <div className="h-1 flex-1 bg-gradient-to-l from-green-400 to-green-300 rounded-full"></div>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {afterPhotos.map((photo, index) => (
+                    <div key={index} className="relative group overflow-hidden rounded-xl shadow-lg border-2 border-green-200">
+                      <img src={photo} alt={`Po ${index + 1}`} className="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                      <span className="absolute bottom-2 left-2 bg-green-600/80 text-white px-3 py-1 rounded-lg text-xs font-bold tracking-wide">TERAZ</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

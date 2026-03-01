@@ -129,7 +129,7 @@ export default function Home() {
             <div className="text-6xl mb-4">💗</div>
             <h2 className="text-4xl font-bold mb-4">Przekaż 1,5% podatku</h2>
             <p className="text-lg text-orange-50 mb-8 max-w-2xl mx-auto">
-              Przekaż 1% swojego podatku na schronisko Azyl w Dzierżoniowie.
+              Przekaż 1,5% swojego podatku na schronisko Azyl w Dzierżoniowie.
               Twoje wsparcie ratuje życie bezdomnym zwierzętom.
             </p>
           </div>
